@@ -14,6 +14,24 @@
 	<artifactId>si-peppol-model</artifactId>
 	<name>Simpler Invoicing Peppol Model Library</name>
 	
-
-
+	<dependencies>
+ 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>2.2.1-1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.activation</groupId>
+                    <artifactId>activation</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    
+ 		
+	</dependencies>
+	
 </project>
