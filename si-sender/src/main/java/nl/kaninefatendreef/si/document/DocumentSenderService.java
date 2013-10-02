@@ -34,8 +34,8 @@ public class DocumentSenderService implements InitializingBean{
 	@Autowired
 	private SISoapProxy _siSoapProxy = null;
 	
-	@Autowired 
-	SIDocumentValidator siDocumentValidator = null;
+	@Autowired (required=false)
+	SIDocumentValidator _siDocumentValidator = null;
 
 	public SIDocumentSenderResult send(InputStream inputStream , SIParticipant endPointSiReceiver )
 		throws SIDocumentSenderException, SIDocumentValidationException{
@@ -49,9 +49,9 @@ public class DocumentSenderService implements InitializingBean{
 
 			// Also validate agains the xsd and or schematron
 			
-			if (siDocumentValidator != null)
+			if (_siDocumentValidator != null)
 			{
-				siDocumentValidator.validate(document);
+				_siDocumentValidator.validate(document);
 			}
 			
 		} catch (ParserConfigurationException | SAXException | IOException   e) {
