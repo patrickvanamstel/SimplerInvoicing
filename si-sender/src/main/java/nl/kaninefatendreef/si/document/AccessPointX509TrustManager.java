@@ -51,21 +51,24 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Set;
 
+// TODO
+// A copy from oxalis
+// 
 public class AccessPointX509TrustManager implements X509TrustManager {
 
-	Logger logger = LoggerFactory.getLogger(AccessPointX509TrustManager.class);
+	Logger _logger = LoggerFactory.getLogger(AccessPointX509TrustManager.class);
 	
-    private Set<String> commonNames;
-    private X509Certificate rootCertificate;
+    private Set<String> _commonNames;
+    private X509Certificate _rootCertificate;
 
-    private X509TrustManager defaultTrustManager = null;
+    private X509TrustManager _defaultTrustManager = null;
 
     public AccessPointX509TrustManager(Set<String> acceptedCommonNames, X509Certificate acceptedRootCertificate) {
-        this.rootCertificate = acceptedRootCertificate;
-        this.commonNames = acceptedCommonNames;
+        _rootCertificate = acceptedRootCertificate;
+        _commonNames = acceptedCommonNames;
 
         // Locates and saves the default trust manager, i.e. the one supplied with the Java runtime
-        defaultTrustManager = locateAndSaveDefaultTrustManager();
+        _defaultTrustManager = locateAndSaveDefaultTrustManager();
 
     }
 
@@ -74,7 +77,8 @@ public class AccessPointX509TrustManager implements X509TrustManager {
         try {
             TrustManagerFactory instance = TrustManagerFactory.getInstance(algorithm);
             instance.init((KeyStore) null); // Initialises the trust manager factory with the default CA certs installed
-            int length = instance.getTrustManagers().length;
+            
+            //int length = instance.getTrustManagers().length;
             TrustManager[] trustManagers = instance.getTrustManagers();
             for (TrustManager trustManager : trustManagers) {
                 if (trustManager instanceof X509TrustManager) {
@@ -83,47 +87,47 @@ public class AccessPointX509TrustManager implements X509TrustManager {
             }
 
         } catch (NoSuchAlgorithmException e) {
-        	logger.error("Unable to obtain instances of the TrustManagerFactory for algorithm " + algorithm);
+        	_logger.error("Unable to obtain instances of the TrustManagerFactory for algorithm " + algorithm);
         } catch (KeyStoreException e) {
-        	logger.error("Unable to initialize the trust manager");
+        	_logger.error("Unable to initialize the trust manager");
         }
         return null;
     }
 
     public final void checkClientTrusted(final X509Certificate[] chain, final String authType) throws CertificateException {
-    	logger.debug("Checking client certificates");
+    	_logger.debug("Checking client certificates");
         checkPrincipal(chain);
     }
 
     public final void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 
         for (X509Certificate x509Certificate : chain) {
-        	logger.debug("Inspecting peer certificate " + x509Certificate.getSubjectX500Principal() + ", issued by " + x509Certificate.getIssuerX500Principal());
+        	_logger.debug("Inspecting peer certificate " + x509Certificate.getSubjectX500Principal() + ", issued by " + x509Certificate.getIssuerX500Principal());
         }
 
         // Invokes the default JSSE Trust Manager in order to check the SSL peer certificate.
         try {
-            if (defaultTrustManager != null){
-                defaultTrustManager.checkServerTrusted(chain, authType);
+            if (_defaultTrustManager != null){
+                _defaultTrustManager.checkServerTrusted(chain, authType);
             } else {
-            	logger.warn("No default trust manager established upon creation of " + this.getClass().getSimpleName());
+            	_logger.warn("No default trust manager established upon creation of " + this.getClass().getSimpleName());
             }
         } catch (CertificateException e) {
             X509Certificate x509Certificate = chain[0];
-            logger.warn("Server SSL sertificate " + x509Certificate + " is not trusted: " + e + "\nThis cause might be a missing root certificate in your local truststore");
+            _logger.warn("Server SSL sertificate " + x509Certificate + " is not trusted: " + e + "\nThis cause might be a missing root certificate in your local truststore");
         }
         checkPrincipal(chain);
-        logger.debug("Void SSL server certificate check performed.");
+        _logger.debug("Void SSL server certificate check performed.");
     }
 
     public final X509Certificate[] getAcceptedIssuers() {
-    	logger.debug("Returning trusted root certificates");
-        return new X509Certificate[]{rootCertificate};
+    	_logger.debug("Returning trusted root certificates");
+        return new X509Certificate[]{_rootCertificate};
     }
 
     private void checkPrincipal(final X509Certificate[] chain) throws CertificateException {
 
-        if (commonNames == null) {
+        if (_commonNames == null) {
             return;
         }
 
@@ -136,20 +140,20 @@ public class AccessPointX509TrustManager implements X509TrustManager {
             if (x >= 0) {
                 String curCN = s.substring(x + 3);
 
-                if (commonNames.contains(curCN)) {
+                if (_commonNames.contains(curCN)) {
                     StringBuilder logappender = new StringBuilder();
                     logappender.append("Accepted issuer: ");
                     logappender.append(s.substring(x + 3));
 
-                    logger.info(logappender.toString());
-                    logger.info("Accepted issuer: " + s.substring(x + 3));
+                    _logger.info(logappender.toString());
+                    _logger.info("Accepted issuer: " + s.substring(x + 3));
 
                     return;
                 }
             }
         }
 
-        logger.error("No accepted issuer: " + chain[0].getSubjectX500Principal());
+        _logger.error("No accepted issuer: " + chain[0].getSubjectX500Principal());
         throw new CertificateException("Remote principal is not trusted");
     }
 }
