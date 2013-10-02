@@ -52,6 +52,8 @@ public class SmpLookupService implements InitializingBean{
 	Proxy _proxy = null;
 	
 	private String _smlPeppolCentralDNS = "sml.peppolcentral.org";
+	private String _ipAddressSmlCentral = null;
+	
 	
     /**
      * @param participant
@@ -176,6 +178,11 @@ public class SmpLookupService implements InitializingBean{
         String encodedParticipant = URLEncoder.encode(scheme + "::" + value, "UTF-8");
         String encodedDocumentId = URLEncoder.encode(eu.peppol.start.model.PeppolDocumentTypeIdAcronym.getScheme() + "::" + documentTypeIdentifier.stringValue(), "UTF-8");
 
+        if (_ipAddressSmlCentral != null){
+        	_logger.debug("Using ip address to fetch endpoints url.");
+        	hostname = _ipAddressSmlCentral;
+        }
+        
         return new URL("http://" + hostname + "/" + encodedParticipant + "/services/" + encodedDocumentId);
     }
 
@@ -269,16 +276,20 @@ public class SmpLookupService implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		
-		if (_environment.containsProperty("nl.kaninefaten.si.peppol.dns")){
-			_smlPeppolCentralDNS = _environment.getProperty("nl.kaninefaten.si.peppol.dns.name");
+		if (_environment.containsProperty("nl.kaninefatendreef.si.peppol.dns")){
+			_smlPeppolCentralDNS = _environment.getProperty("nl.kaninefatendreef.si.peppol.dns.name");
 		}
-
-		if (_environment.containsProperty("nl.kaninefaten.si.peppol.dns.proxy.name"))
+		if (_environment.containsProperty("nl.kaninefatendreef.si.peppol.dns.ip")){
+			_ipAddressSmlCentral = _environment.getProperty("nl.kaninefatendreef.si.peppol.dns.ip");
+		}
+		if (_environment.containsProperty("nl.kaninefatendreef.si.peppol.dns.proxy.name"))
 		{
 			//_proxy = new Proxy , _environment.getProperty("nl.kaninefaten.si.peppol.dns.proxy.port"));			
-			SocketAddress addr = new InetSocketAddress(_environment.getProperty("nl.kaninefaten.si.peppol.dns.proxy.name"),3128);
+			SocketAddress addr = new InetSocketAddress(_environment.getProperty("nl.kaninefatendreef.si.peppol.dns.proxy.name"),3128);
 			_proxy = new Proxy(Proxy.Type.HTTP, addr);
 		}
+		
+		
 
 		
 		
