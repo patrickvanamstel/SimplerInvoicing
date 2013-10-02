@@ -20,7 +20,6 @@ import nl.kaninefatendreef.si.document.DocumentSenderService;
 import nl.kaninefatendreef.si.document.SIDocumentSenderException;
 import nl.kaninefatendreef.si.document.SIDocumentSenderResult;
 import nl.kaninefatendreef.si.document.SIParticipant;
-import nl.kaninefatendreef.si.document.SIProxy;
 import nl.kaninefatendreef.si.document.SISoapProxy;
 import nl.kaninefatendreef.si.ssl.FileSystemKeyStoreManager;
 import nl.kaninefatendreef.si.ssl.FileSystemTrustStoreManager;
