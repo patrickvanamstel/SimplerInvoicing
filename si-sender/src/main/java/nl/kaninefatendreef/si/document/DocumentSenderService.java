@@ -17,17 +17,14 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import eu.peppol.start.model.MessageId;
-import eu.peppol.start.model.PeppolDocumentTypeId;
-import eu.peppol.start.model.PeppolMessageHeader;
-import eu.peppol.start.model.PeppolProcessTypeId;
 import eu.peppol.start.model.ParticipantId;
+import eu.peppol.start.model.PeppolDocumentTypeIdAcronym;
+import eu.peppol.start.model.PeppolMessageHeader;
+import eu.peppol.start.model.PeppolProcessTypeIdAcronym;
 
 @Component
 public class DocumentSenderService implements InitializingBean{
 
-	String documentTypeIdentifier = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0::2.0";
-	String peppolProcessTypeId = "urn:www.cenbii.eu:profile:bii04:ver1.0";
-	
 	@Autowired @Qualifier("ParticipantSenderId")
 	private SIParticipant _endPointSiSender = null;
 
@@ -72,11 +69,9 @@ public class DocumentSenderService implements InitializingBean{
         MessageId messageId = new MessageId("uuid:" + UUID.randomUUID().toString());
         
         messageHeader.setMessageId(messageId);
+        messageHeader.setDocumentTypeIdentifier(PeppolDocumentTypeIdAcronym.INVOICE.getDocumentTypeIdentifier());
+        messageHeader.setPeppolProcessTypeId(PeppolProcessTypeIdAcronym.INVOICE_ONLY.getPeppolProcessTypeId());
         
-        //TODO Deze moet ergens komen
-        messageHeader.setDocumentTypeIdentifier(PeppolDocumentTypeId.valueOf(documentTypeIdentifier));
-
-        messageHeader.setPeppolProcessTypeId(new PeppolProcessTypeId(peppolProcessTypeId));
         messageHeader.setSenderId(senderId);
         messageHeader.setRecipientId(recipientId);
 
@@ -85,7 +80,6 @@ public class DocumentSenderService implements InitializingBean{
 		} catch (FaultMessage e) {
 			throw new SIDocumentSenderException(e);
 		}
-        // Opzoeken wat er hier precies gebeurd
         		
         siDocumentSenderResult.setMessageId(messageId);
         siDocumentSenderResult.setSenderId(messageHeader.getSenderId());

@@ -39,7 +39,6 @@ import com.sun.xml.ws.developer.JAXWSProperties;
 import eu.peppol.start.model.PeppolMessageHeader;
 
 
-
 @Component
 public class SISoapProxy implements InitializingBean{
 
@@ -57,7 +56,6 @@ public class SISoapProxy implements InitializingBean{
 
 	private Map<URL, Long> apBlackList = Collections.synchronizedMap(new LinkedHashMap<URL, Long>());
 
-
 	  private URL getWsdlUrl() {
 	        String wsdlLocation = "META-INF/wsdl_v2.0-client.wsdl";
 	        URL wsdlUrl = getClass().getClassLoader().getResource(wsdlLocation);
@@ -71,16 +69,13 @@ public class SISoapProxy implements InitializingBean{
 	public void send(URL endpointAddress, final PeppolMessageHeader messageHeader,
 			Create soapBody) throws FaultMessage {
 		
-		
         if (existInApBlackList(endpointAddress)) {
             throw new RuntimeException("Recipient AP is not avalaible at the moment: "
                     + endpointAddress.toExternalForm()
                     + " . Please contact system administrator.");
         }
 
-        logger.debug("Constructing service proxy");
-
-        
+      
         AccessPointService accesspointService = new AccessPointService(
                 
         		
