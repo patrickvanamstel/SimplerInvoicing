@@ -2,6 +2,7 @@ package nl.kaninefatendreef.si.config;
 
 import java.io.File;
 
+import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
 import nl.kaninefatendreef.si.ssl.FileSystemKeyStoreManager;
 import nl.kaninefatendreef.si.ssl.FileSystemTrustStoreManager;
 import nl.kaninefatendreef.si.ssl.KeyStoreManager;
@@ -30,8 +31,8 @@ public class SSLFilesystemConfig {
 		
 		FileSystemKeyStoreManager fileSystemKeyStoreManager = new FileSystemKeyStoreManager();
 		
-		fileSystemKeyStoreManager.setKeyStoreFile(new File(environment.getProperty("nl.kaninefatendreef.si.keystore.file")));
-		fileSystemKeyStoreManager.setPassword(environment.getProperty("nl.kaninefatendreef.si.keystore.password"));
+		fileSystemKeyStoreManager.setKeyStoreFile(new File(environment.getProperty(SIConfigurationProperties.SI_KEYSTORE_FILE.getValue())));
+		fileSystemKeyStoreManager.setPassword(environment.getProperty(SIConfigurationProperties.SI_KEYSTORE_PASS.getValue()));
 		
 		return fileSystemKeyStoreManager;
 	}	 
@@ -40,8 +41,8 @@ public class SSLFilesystemConfig {
 	public TrustStoreManager fileSystemTrustStoreManager() {
 		
 		FileSystemTrustStoreManager fileSystemTrustStoreManager = new FileSystemTrustStoreManager();
-		fileSystemTrustStoreManager.setKeyStoreFile(new File(environment.getProperty("nl.kaninefatendreef.si.truststore.file")));
-		fileSystemTrustStoreManager.setPassword(environment.getProperty("nl.kaninefatendreef.si.truststore.password"));
+		fileSystemTrustStoreManager.setKeyStoreFile(new File(environment.getProperty(SIConfigurationProperties.SI_TRUSTSTORE_FILE.getValue())));
+		fileSystemTrustStoreManager.setPassword(environment.getProperty(SIConfigurationProperties.SI_TRUSTSTORE_PASS.getValue()));
 		
 		return fileSystemTrustStoreManager;
 	}	 

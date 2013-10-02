@@ -4,6 +4,8 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -32,14 +34,14 @@ public class DNSLookupService implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 
-		if (environment.containsProperty("nl.kaninefaten.si.peppol.dns.proxy.name"))
+		if (environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()))
 		{
-    		System.setProperty("http.proxyHost", environment.getProperty("nl.kaninefaten.si.peppol.dns.proxy.name"));
-			System.setProperty("http.proxyPort", environment.getProperty("nl.kaninefaten.si.peppol.dns.proxy.port"));
+    		System.setProperty("http.proxyHost", environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()));
+			System.setProperty("http.proxyPort", environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_PORT.getValue()));
 		}
 		
-		if (environment.containsProperty("nl.kaninefaten.si.peppol.dns.validate")){
-			if (environment.getProperty("nl.kaninefaten.si.peppol.dns.validate").equalsIgnoreCase("true")){
+		if (environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_VALIDATE.getValue())){
+			if (environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_VALIDATE.getValue()).equalsIgnoreCase("true")){
 				_checkInetAddress = true;
 			}else{
 				_checkInetAddress = false;

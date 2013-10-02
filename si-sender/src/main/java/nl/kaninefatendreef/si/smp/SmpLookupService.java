@@ -18,6 +18,8 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
+
 import org.busdox.smp.EndpointType;
 import org.busdox.smp.ProcessIdentifierType;
 import org.busdox.smp.SignedServiceMetadataType;
@@ -276,16 +278,21 @@ public class SmpLookupService implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		
-		if (_environment.containsProperty("nl.kaninefatendreef.si.peppol.dns")){
-			_smlPeppolCentralDNS = _environment.getProperty("nl.kaninefatendreef.si.peppol.dns.name");
+		if (_environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_NAME.getValue())){
+			_smlPeppolCentralDNS = _environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_NAME.getValue());
 		}
-		if (_environment.containsProperty("nl.kaninefatendreef.si.peppol.dns.ip")){
-			_ipAddressSmlCentral = _environment.getProperty("nl.kaninefatendreef.si.peppol.dns.ip");
+		if (_environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_IP.getValue())){
+			_ipAddressSmlCentral = _environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_IP.getValue());
 		}
-		if (_environment.containsProperty("nl.kaninefatendreef.si.peppol.dns.proxy.name"))
+		if (_environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()))
 		{
-			//_proxy = new Proxy , _environment.getProperty("nl.kaninefaten.si.peppol.dns.proxy.port"));			
-			SocketAddress addr = new InetSocketAddress(_environment.getProperty("nl.kaninefatendreef.si.peppol.dns.proxy.name"),3128);
+			int port = -1 ;
+			try{
+				port= new Integer(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_PORT.getValue());
+			}catch (NumberFormatException e){
+				port = 3128;
+			}
+			SocketAddress addr = new InetSocketAddress(_environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()),port);
 			_proxy = new Proxy(Proxy.Type.HTTP, addr);
 		}
 		

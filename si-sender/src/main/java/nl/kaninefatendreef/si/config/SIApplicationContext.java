@@ -47,7 +47,7 @@ public class SIApplicationContext implements ApplicationContextAware {
 		return _keyStoreManager;
 	}
 
-	public void setKeyStoreManager(KeyStoreManager keyStoreManager) {
+	public static void setKeyStoreManager(KeyStoreManager keyStoreManager) {
 		SIApplicationContext._keyStoreManager = keyStoreManager;
 	}
 
@@ -59,7 +59,7 @@ public class SIApplicationContext implements ApplicationContextAware {
 		return _trustStoreManager;
 	}
 
-	public void setTrustStoreManager(TrustStoreManager trustStoreManager) {
+	public static void setTrustStoreManager(TrustStoreManager trustStoreManager) {
 		SIApplicationContext._trustStoreManager = trustStoreManager;
 	}
 	

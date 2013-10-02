@@ -113,45 +113,32 @@ public class DocumentSenderService implements InitializingBean{
 		return _siProxy;
 	}
 
-
-
-
 	public void setSiProxy(SIProxy siProxy) {
-		this._siProxy = siProxy;
+		_siProxy = siProxy;
 	}
 	
 	public Boolean getValidateUBLDocument() {
 		return _validateUBLDocument;
 	}
 
-
-
-
 	public void setValidateUBLDocument(Boolean validateUBLDocument) {
-		this._validateUBLDocument = validateUBLDocument;
+		_validateUBLDocument = validateUBLDocument;
 	}
-	
 
 	public SIParticipant getEndPointSiSender() {
 		return _endPointSiSender;
 	}
 
-
-
-
 	public void setEndPointSiSender(SIParticipant endPointSiSender) {
-		this._endPointSiSender = endPointSiSender;
+		_endPointSiSender = endPointSiSender;
 	}
 
 	public SISoapProxy getSiSoapProxy() {
 		return _siSoapProxy;
 	}
 
-
-
-
 	public void setSiSoapProxy(SISoapProxy siSoapProxy) {
-		this._siSoapProxy = siSoapProxy;
+		_siSoapProxy = siSoapProxy;
 	}
 	
 }

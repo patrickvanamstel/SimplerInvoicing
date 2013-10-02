@@ -1,5 +1,6 @@
 package nl.kaninefatendreef.si.config;
 
+import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
 import nl.kaninefatendreef.si.document.SIParticipant;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class DocumentConfig {
 		
 		SIParticipant siParticipant = new SIParticipant();
 		
-		ParticipantId participantId = new ParticipantId(environment.getProperty("nl.kaninefatendreef.si.sender.id"));
+		ParticipantId participantId = new ParticipantId(environment.getProperty(SIConfigurationProperties.SI_SENDER_ID.getValue()));
 		siParticipant.setParticipantId(participantId);
 		siParticipant.setParticipantId(participantId);
 
