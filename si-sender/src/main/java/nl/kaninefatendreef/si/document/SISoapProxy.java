@@ -59,7 +59,7 @@ public class SISoapProxy implements InitializingBean{
 
 
 	  private URL getWsdlUrl() {
-	        String wsdlLocation = "META-INF/wsdl/wsdl_v2.0-client.wsdl";
+	        String wsdlLocation = "META-INF/wsdl_v2.0-client.wsdl";
 	        URL wsdlUrl = getClass().getClassLoader().getResource(wsdlLocation);
 
 	        if (wsdlUrl == null) {

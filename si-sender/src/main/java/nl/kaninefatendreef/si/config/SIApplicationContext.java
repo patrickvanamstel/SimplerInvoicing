@@ -3,6 +3,8 @@ package nl.kaninefatendreef.si.config;
 import nl.kaninefatendreef.si.ssl.KeyStoreManager;
 import nl.kaninefatendreef.si.ssl.TrustStoreManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SIApplicationContext implements ApplicationContextAware {
 
+	static Logger _logger = LoggerFactory.getLogger(SIApplicationContext.class);
+	
 	static ApplicationContext _applicationContext = null;
 	
 	static KeyStoreManager _keyStoreManager = null;
@@ -33,8 +37,13 @@ public class SIApplicationContext implements ApplicationContextAware {
 		    return _applicationContext;
 	}
 	
-	
 	public static KeyStoreManager getKeyStoreManager() {
+		
+		if (_keyStoreManager == null){
+			_keyStoreManager = getApplicationContext().getBean(KeyStoreManager.class);
+			_logger.info(_keyStoreManager.configurationInformationAsString());
+		}
+		
 		return _keyStoreManager;
 	}
 
@@ -43,6 +52,10 @@ public class SIApplicationContext implements ApplicationContextAware {
 	}
 
 	public static TrustStoreManager getTrustStoreManager() {
+		if (_trustStoreManager == null){
+			_trustStoreManager = getApplicationContext().getBean(TrustStoreManager.class);
+			_logger.info(_trustStoreManager.configurationInformationAsString());
+		}
 		return _trustStoreManager;
 	}
 

@@ -1,0 +1,936 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ubl:Invoice xmlns:cur="urn:oasis:names:specification:ubl:schema:xsd:CurrencyCode-2"
+             xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2"
+             xmlns:ubl="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2"
+             xmlns:iif="http://www.anachron.com/ingis/iif/1.2"
+             xmlns:ip="http://www.anachron.com/InvoicePortal/ip/1.0"
+             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"
+             xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2">
+   <ext:UBLExtensions xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <ext:UBLExtension>
+         <cbc:Name>iif1.2</cbc:Name>
+         <ext:ExtensionVersionID>IP1.0</ext:ExtensionVersionID>
+         <ext:ExtensionReason>
+								Extra content to be backwards compatible with iif1.2
+							</ext:ExtensionReason>
+         <ext:ExtensionContent>
+            <iif:Invoice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="Factuur"
+                         language="nl"
+                         paymentReference="9001504"
+                         internalReferenceNumber="X"
+                         externalReferenceNumber="Y">
+               <iif:Totals>
+                  <iif:VatTotal grossAmount=".00" vatRate="6.0"/>
+                  <iif:VatTotal grossAmount="127.52" vatRate="21.0"/>
+               </iif:Totals>
+               <iif:Receiver>
+                  <iif:Locations>
+                     <iif:Address type="invoiceAddress" name="Test Engineering B.V." street="Postbus 8755"
+                                  postalCode="1000 LT"
+                                  city="EINDHOVEN"/>
+                  </iif:Locations>
+               </iif:Receiver>
+               <iif:Sender>
+                  <iif:Locations>
+                     <iif:Address type="businessAddress" name="Test Car Lease" street="De teststraat"
+                                  houseNumber="22"
+                                  postalCode="1000 CC"
+                                  city="Amsterdam"/>
+                     <iif:Address type="mailingAddress" name="Test Car Lease" street="Postbus 12086"
+                                  postalCode="1100 AB"
+                                  city="Amsterdam"/>
+                  </iif:Locations>
+                  <iif:BankDetails>
+                     <iif:Bank name="Fortisbank" number="243450176" IBAN="NL81 FTSB 0111 1111 11"/>
+                  </iif:BankDetails>
+               </iif:Sender>
+               <iif:Body>
+                  <iif:LineItems>
+                     <iif:LineItem originalId="100000"/>
+                     <iif:LineItem originalId="100000">
+                        <iif:TextLine>Brandstofcontract BC-900183</iif:TextLine>
+                     </iif:LineItem>
+                     <iif:LineItem originalId="200000"/>
+                     <iif:LineItem originalId="100000"/>
+                  </iif:LineItems>
+                  <iif:LineItemGroups>
+                     <iif:LineItemGroup level="body" compoundNumber="100000" lineNumber="100000"/>
+                     <iif:LineGroup groupNumber="2">
+                        <iif:LineItemGroup lineNumber="100000" groupNumber="2" compoundNumber="2.100000"/>
+                        <iif:LineItemGroup lineNumber="200000" groupNumber="2" compoundNumber="2.200000"/>
+                     </iif:LineGroup>
+                     <iif:LineItemGroup level="body" compoundNumber="100000" lineNumber="100000"/>
+                  </iif:LineItemGroups>
+               </iif:Body>
+            </iif:Invoice>
+         </ext:ExtensionContent>
+      </ext:UBLExtension>
+   </ext:UBLExtensions>
+   <cbc:UBLVersionID>2.0</cbc:UBLVersionID>
+   <cbc:CustomizationID>1.0</cbc:CustomizationID>
+   <cbc:ProfileID>Anachron Invoice Portal</cbc:ProfileID>
+   <cbc:ID>VCG-9001504</cbc:ID>
+   <cbc:CopyIndicator>false</cbc:CopyIndicator>
+   <cbc:IssueDate>2009-05-25</cbc:IssueDate>
+   <cbc:InvoiceTypeCode>invoice</cbc:InvoiceTypeCode>
+   <cbc:DocumentCurrencyCode>EUR</cbc:DocumentCurrencyCode>
+   <cac:AccountingSupplierParty xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cac:Party>
+         <cbc:WebsiteURI>www.testcompany.nl</cbc:WebsiteURI>
+         <cac:PartyIdentification>
+            <cbc:ID schemeAgencyName="Kamer van Koophandel">33222115</cbc:ID>
+            <?chamberOfCommerce location="Amsterdam"?></cac:PartyIdentification>
+         <cac:PartyName>
+            <cbc:Name>Test Car Lease</cbc:Name>
+         </cac:PartyName>
+         <cac:PhysicalLocation>
+            <cac:Address>
+               <cbc:StreetName>De teststraat</cbc:StreetName>
+               <cbc:BuildingNumber>22</cbc:BuildingNumber>
+               <cbc:CityName>Amsterdam</cbc:CityName>
+               <cbc:PostalZone>1000 CC</cbc:PostalZone>
+               <cac:AddressLine>
+                  <cbc:Line>Test Car Lease</cbc:Line>
+               </cac:AddressLine>
+            </cac:Address>
+         </cac:PhysicalLocation>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID schemeAgencyName="Belastingdienst">NL0098 00 000 B01</cbc:CompanyID>
+            <cac:TaxScheme/>
+         </cac:PartyTaxScheme>
+         <cac:Contact>
+            <cbc:Name>a</cbc:Name>
+            <cbc:Telephone>020-000 46 96</cbc:Telephone>
+            <cbc:Telefax>020-000 04 98</cbc:Telefax>
+            <cbc:ElectronicMail>info@testcompany.nl</cbc:ElectronicMail>
+            <cac:OtherCommunication>
+               <cbc:Channel>telephone2</cbc:Channel>
+               <cbc:Value>a</cbc:Value>
+            </cac:OtherCommunication>
+         </cac:Contact>
+      </cac:Party>
+   </cac:AccountingSupplierParty>
+   <cac:AccountingCustomerParty xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:SupplierAssignedAccountID>KLT1344</cbc:SupplierAssignedAccountID>
+      <cac:Party>
+         <cac:PartyIdentification>
+            <cbc:ID schemeAgencyName="Belastingdienst">NL11111111111111</cbc:ID>
+         </cac:PartyIdentification>
+         <cac:PartyName>
+            <cbc:Name>Test Engineering B.V.</cbc:Name>
+         </cac:PartyName>
+         <cac:PhysicalLocation>
+            <cac:Address>
+               <cbc:StreetName>Postbus 8755</cbc:StreetName>
+               <cbc:CityName>EINDHOVEN</cbc:CityName>
+               <cbc:PostalZone>1000 LT</cbc:PostalZone>
+               <cac:AddressLine>
+                  <cbc:Line>Test Engineering B.V.</cbc:Line>
+               </cac:AddressLine>
+            </cac:Address>
+         </cac:PhysicalLocation>
+         <cac:PartyTaxScheme>
+            <cbc:CompanyID schemeAgencyName="Belastingdienst">NL11111111111111</cbc:CompanyID>
+            <cac:TaxScheme/>
+         </cac:PartyTaxScheme>
+         <cac:Contact>
+            <cbc:ElectronicMail>kars.vanderhoek@anachron.com</cbc:ElectronicMail>
+         </cac:Contact>
+      </cac:Party>
+   </cac:AccountingCustomerParty>
+   <cac:PaymentMeans xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:PaymentMeansCode>Bank</cbc:PaymentMeansCode>
+      <cbc:PaymentDueDate>2009-06-08</cbc:PaymentDueDate>
+      <cbc:PaymentChannelCode>IBAN</cbc:PaymentChannelCode>
+      <cac:PayeeFinancialAccount>
+         <cbc:ID>NL81 FTSB 0111 1111 11</cbc:ID>
+         <cbc:PaymentNote>243450176</cbc:PaymentNote>
+         <cac:FinancialInstitutionBranch>
+            <cac:FinancialInstitution>
+               <cbc:Name>Fortisbank</cbc:Name>
+            </cac:FinancialInstitution>
+         </cac:FinancialInstitutionBranch>
+      </cac:PayeeFinancialAccount>
+   </cac:PaymentMeans>
+   <cac:PaymentTerms xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:Note>14 dagen</cbc:Note>
+      <cac:PenaltyPeriod>
+         <cbc:EndDate>2009-06-08</cbc:EndDate>
+      </cac:PenaltyPeriod>
+   </cac:PaymentTerms>
+   <cac:TaxTotal xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:TaxAmount currencyID="EUR">20.36</cbc:TaxAmount>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">0.00</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">0.00</cbc:TaxAmount>
+         <cbc:Percent>6.0</cbc:Percent>
+         <cac:TaxCategory>
+            <cbc:ID>6 %</cbc:ID>
+            <cac:TaxScheme/>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+      <cac:TaxSubtotal>
+         <cbc:TaxableAmount currencyID="EUR">107.16</cbc:TaxableAmount>
+         <cbc:TaxAmount currencyID="EUR">20.36</cbc:TaxAmount>
+         <cbc:Percent>21.0</cbc:Percent>
+         <cac:TaxCategory>
+            <cbc:ID>21 %</cbc:ID>
+            <cac:TaxScheme/>
+         </cac:TaxCategory>
+      </cac:TaxSubtotal>
+   </cac:TaxTotal>
+   <cac:LegalMonetaryTotal xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:LineExtensionAmount currencyID="EUR">107.16</cbc:LineExtensionAmount>
+      <cbc:TaxExclusiveAmount currencyID="EUR">107.16</cbc:TaxExclusiveAmount>
+      <cbc:TaxInclusiveAmount currencyID="EUR">127.52</cbc:TaxInclusiveAmount>
+      <cbc:PayableAmount currencyID="EUR">127.52</cbc:PayableAmount>
+   </cac:LegalMonetaryTotal>
+   <cac:InvoiceLine xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:ID>100000</cbc:ID>
+      <cbc:InvoicedQuantity>1.0</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">-153.02</cbc:LineExtensionAmount>
+      <cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
+      <cac:OrderLineReference>
+         <cbc:LineID>contractNumber</cbc:LineID>
+         <cac:OrderReference>
+            <cbc:ID>LC-900243</cbc:ID>
+         </cac:OrderReference>
+      </cac:OrderLineReference>
+      <cac:TaxTotal>
+         <cbc:TaxAmount currencyID="EUR">-29.07</cbc:TaxAmount>
+         <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">-153.02</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">-29.07</cbc:TaxAmount>
+            <cbc:Percent>21.0</cbc:Percent>
+            <cac:TaxCategory>
+               <cbc:ID>21 %</cbc:ID>
+               <cac:TaxScheme/>
+            </cac:TaxCategory>
+         </cac:TaxSubtotal>
+      </cac:TaxTotal>
+      <cac:Item>
+         <cbc:Description>Periodieke afrekening brandstof per 30-04-09.</cbc:Description>
+         <cbc:CatalogueIndicator>false</cbc:CatalogueIndicator>
+         <cac:SellersItemIdentification>
+            <cbc:ID>VRT001628</cbc:ID>
+         </cac:SellersItemIdentification>
+         <cac:ItemInstance>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>grossAmount</cbc:Name>
+               <cbc:Value>-182.09</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+            </cac:AdditionalItemProperty>
+         </cac:ItemInstance>
+      </cac:Item>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:ID>2.100000</cbc:ID>
+      <cbc:Note>Brandstofcontract BC-900183<?anachron tag="br"?></cbc:Note>
+      <cbc:InvoicedQuantity>1.0</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">-153.02</cbc:LineExtensionAmount>
+      <cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
+      <cac:OrderLineReference>
+         <cbc:LineID>contractNumber</cbc:LineID>
+         <cac:OrderReference>
+            <cbc:ID>LC-900243</cbc:ID>
+         </cac:OrderReference>
+      </cac:OrderLineReference>
+      <cac:TaxTotal>
+         <cbc:TaxAmount currencyID="EUR">-29.07</cbc:TaxAmount>
+         <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">-153.02</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">-29.07</cbc:TaxAmount>
+            <cbc:Percent>21.0</cbc:Percent>
+            <cac:TaxCategory>
+               <cbc:ID>21 %</cbc:ID>
+               <cac:TaxScheme/>
+            </cac:TaxCategory>
+         </cac:TaxSubtotal>
+      </cac:TaxTotal>
+      <cac:Item>
+         <cbc:Description>Periodieke afrekening brandstof per 30-04-09.</cbc:Description>
+         <cbc:CatalogueIndicator>false</cbc:CatalogueIndicator>
+         <cac:SellersItemIdentification>
+            <cbc:ID>VRT001628</cbc:ID>
+         </cac:SellersItemIdentification>
+         <cac:ItemInstance>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>grossAmount</cbc:Name>
+               <cbc:Value>-182.09</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.id</cbc:Name>
+               <cbc:Value>extra</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.label.extra</cbc:Name>
+               <cbc:Value/>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>registrationNumber</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>44-TT-JH</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>KENTEKEN</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>driver</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>S.J.M. Sanders</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.driver</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>BERIJDER</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.driver</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.driver</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.id</cbc:Name>
+               <cbc:Value>fuel</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.label.fuel</cbc:Name>
+               <cbc:Value>Fuel invoice enclosure.</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>registrationNumber</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>46-TV-JH</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Licence plate</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>contractNumber</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>LC-900243Y</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.contractNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Contract no</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.contractNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.contractNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>date</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>07-04-09</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.date</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Date</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.date</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.date</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>gasStation</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>11010</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.gasStation</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Gas station</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.gasStation</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.gasStation</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>kmposition</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>78.765</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.kmposition</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Km position</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.kmposition</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.kmposition</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>currency</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>EURO</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.currency</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Type</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.currency</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.currency</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>liters</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>35,65</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.liters</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Liters</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.liters</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.liters</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>netAmount</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>41,01</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.netAmount</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Amount ex VAT</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.netAmount</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.netAmount</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.id</cbc:Name>
+               <cbc:Value>fuel</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.label.fuel</cbc:Name>
+               <cbc:Value>Fuel invoice enclosure.</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>registrationNumber</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>46-TV-JH</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Licence plate</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>contractNumber</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>LC-900243Y</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.contractNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Contract no</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.contractNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.contractNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>date</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>17-04-09</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.date</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Date</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.date</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.date</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>gasStation</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>14212</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.gasStation</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Gas station</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.gasStation</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.gasStation</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>kmposition</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>78.000</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.kmposition</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Km position</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.kmposition</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.kmposition</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>currency</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>EURO</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.currency</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Type</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.currency</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.currency</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>liters</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>47,88</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.liters</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Liters</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.liters</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.liters</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>netAmount</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>55,08</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.netAmount</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>Amount ex VAT</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.netAmount</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>false</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>fuel.netAmount</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+         </cac:ItemInstance>
+      </cac:Item>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:ID>2.200000</cbc:ID>
+      <cbc:InvoicedQuantity>1.0</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">260.18</cbc:LineExtensionAmount>
+      <cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
+      <cac:TaxTotal>
+         <cbc:TaxAmount currencyID="EUR">49.43</cbc:TaxAmount>
+         <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">260.18</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">49.43</cbc:TaxAmount>
+            <cbc:Percent>21.0</cbc:Percent>
+            <cac:TaxCategory>
+               <cbc:ID>21 %</cbc:ID>
+               <cac:TaxScheme/>
+            </cac:TaxCategory>
+         </cac:TaxSubtotal>
+      </cac:TaxTotal>
+      <cac:Item>
+         <cbc:Description>To calculate avances</cbc:Description>
+         <cbc:CatalogueIndicator>false</cbc:CatalogueIndicator>
+         <cac:ItemInstance>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>grossAmount</cbc:Name>
+               <cbc:Value>309.61</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.id</cbc:Name>
+               <cbc:Value>extra</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>details.label.extra</cbc:Name>
+               <cbc:Value/>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>registrationNumber</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>44-TT-JH</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>KENTEKEN</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.registrationNumber</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.id</cbc:Name>
+               <cbc:Value>driver</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.value</cbc:Name>
+               <cbc:Value>S.J.M. Sanders</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.driver</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.label</cbc:Name>
+               <cbc:Value>BERIJDER</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.driver</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>detail.display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+               <cac:ItemPropertyGroup>
+                  <cbc:ID>extra.driver</cbc:ID>
+               </cac:ItemPropertyGroup>
+            </cac:AdditionalItemProperty>
+         </cac:ItemInstance>
+      </cac:Item>
+   </cac:InvoiceLine>
+   <cac:InvoiceLine xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2">
+      <cbc:ID>100000</cbc:ID>
+      <cbc:InvoicedQuantity>1.0</cbc:InvoicedQuantity>
+      <cbc:LineExtensionAmount currencyID="EUR">-153.02</cbc:LineExtensionAmount>
+      <cbc:FreeOfChargeIndicator>false</cbc:FreeOfChargeIndicator>
+      <cac:OrderLineReference>
+         <cbc:LineID>contractNumber</cbc:LineID>
+         <cac:OrderReference>
+            <cbc:ID>LC-900243</cbc:ID>
+         </cac:OrderReference>
+      </cac:OrderLineReference>
+      <cac:TaxTotal>
+         <cbc:TaxAmount currencyID="EUR">-29.07</cbc:TaxAmount>
+         <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="EUR">-153.02</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="EUR">-29.07</cbc:TaxAmount>
+            <cbc:Percent>21.0</cbc:Percent>
+            <cac:TaxCategory>
+               <cbc:ID>21 %</cbc:ID>
+               <cac:TaxScheme/>
+            </cac:TaxCategory>
+         </cac:TaxSubtotal>
+      </cac:TaxTotal>
+      <cac:Item>
+         <cbc:Description>Periodieke afrekening brandstof per 30-04-09.</cbc:Description>
+         <cbc:CatalogueIndicator>false</cbc:CatalogueIndicator>
+         <cac:SellersItemIdentification>
+            <cbc:ID>VRT001628</cbc:ID>
+         </cac:SellersItemIdentification>
+         <cac:ItemInstance>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>grossAmount</cbc:Name>
+               <cbc:Value>-182.09</cbc:Value>
+            </cac:AdditionalItemProperty>
+            <cac:AdditionalItemProperty>
+               <cbc:Name>display</cbc:Name>
+               <cbc:Value>true</cbc:Value>
+            </cac:AdditionalItemProperty>
+         </cac:ItemInstance>
+      </cac:Item>
+   </cac:InvoiceLine>
+</ubl:Invoice>

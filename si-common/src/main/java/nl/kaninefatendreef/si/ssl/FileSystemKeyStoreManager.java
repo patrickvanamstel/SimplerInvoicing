@@ -28,6 +28,17 @@ public class FileSystemKeyStoreManager implements KeyStoreManager {
 	private PrivateKey _privateKey = null;
 	private X509Certificate _x509Certificate = null;
 	
+
+	@Override
+	public String configurationInformationAsString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("FileSystemKeyStoreManager : \n");
+		if (_keyStoreFile != null){
+			builder.append("Location : " + _keyStoreFile.getAbsolutePath() + "\n");
+		}
+		return builder.toString();
+	}
+
 	
 	public KeyStore getKeyStore() throws SIConfigurationException{
 		if (_keyStore == null){
@@ -152,6 +163,7 @@ public class FileSystemKeyStoreManager implements KeyStoreManager {
 	public void setAliasCertificate(String aliasCertificate) {
 		_aliasCertificate = aliasCertificate;
 	}
+
 
 
 }

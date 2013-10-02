@@ -18,6 +18,17 @@ public class FileSystemTrustStoreManager implements TrustStoreManager {
 
 	private KeyStore _truststore = null;
 
+	@Override
+	public String configurationInformationAsString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("FileSystemTrustStoreManager : \n");
+		if (_keyStoreFile != null){
+			builder.append("Location : " + _keyStoreFile.getAbsolutePath() + "\n");
+		}
+		return builder.toString();
+	}
+
+	
 	public KeyStore getTruststore() throws SIConfigurationException {
 		
 		if (_truststore == null){

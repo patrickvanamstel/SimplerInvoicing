@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.w3._2009._02.ws_tra.Create;
 import org.w3._2009._02.ws_tra.FaultMessage;
@@ -27,7 +28,7 @@ public class DocumentSenderService implements InitializingBean{
 	String documentTypeIdentifier = "urn:oasis:names:specification:ubl:schema:xsd:Invoice-2::Invoice##urn:www.cenbii.eu:transaction:biicoretrdm010:ver1.0:#urn:www.peppol.eu:bis:peppol4a:ver1.0::2.0";
 	String peppolProcessTypeId = "urn:www.cenbii.eu:profile:bii04:ver1.0";
 	
-	@Autowired
+	@Autowired @Qualifier("ParticipantSenderId")
 	private SIParticipant _endPointSiSender = null;
 
 	@Autowired(required=false)
