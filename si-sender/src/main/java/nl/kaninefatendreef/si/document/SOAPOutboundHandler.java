@@ -45,6 +45,8 @@ import org.w3._2009._02.ws_tra.ObjectFactory;
 import org.w3._2009._02.ws_tra.ParticipantIdentifierType;
 import org.w3._2009._02.ws_tra.ProcessIdentifierType;
 
+import eu.peppol.start.model.ParticipantId;
+import eu.peppol.start.model.PeppolDocumentTypeId;
 import eu.peppol.start.model.PeppolMessageHeader;
 
 import javax.xml.bind.JAXBElement;
@@ -109,15 +111,15 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
 
             ParticipantIdentifierType recipientId = new ParticipantIdentifierType();
             recipientId.setValue(_messageHeader.getRecipientId().stringValue());
-            recipientId.setScheme(_messageHeader.getRecipientId().getScheme());
+            recipientId.setScheme(ParticipantId.getScheme());
 
             ParticipantIdentifierType senderId = new ParticipantIdentifierType();
             senderId.setValue(_messageHeader.getSenderId().stringValue());
-            senderId.setScheme(_messageHeader.getSenderId().getScheme());
+            senderId.setScheme(ParticipantId.getScheme());
 
             DocumentIdentifierType documentId = new DocumentIdentifierType();
             documentId.setValue(_messageHeader.getDocumentTypeIdentifier().stringValue());
-            documentId.setScheme(_messageHeader.getDocumentTypeIdentifier().getScheme());
+            documentId.setScheme(PeppolDocumentTypeId.getScheme());
 
             ProcessIdentifierType processId = new ProcessIdentifierType();
             processId.setValue(_messageHeader.getPeppolProcessTypeId().stringValue());
@@ -126,7 +128,8 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
             Marshaller marshaller = JaxbContextCache.getInstance(String.class).createMarshaller();
             marshaller.marshal(objectFactory.createMessageIdentifier(messageId), new DOMResult(header));
 
-            JAXBElement auxChannelId = objectFactory.createChannelIdentifier(channelId);
+            @SuppressWarnings("rawtypes")
+			JAXBElement auxChannelId = objectFactory.createChannelIdentifier(channelId);
             auxChannelId.setNil(true);
             marshaller.marshal(auxChannelId, new DOMResult(header));
 

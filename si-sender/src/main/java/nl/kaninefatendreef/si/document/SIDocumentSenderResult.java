@@ -17,7 +17,6 @@ public class SIDocumentSenderResult {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append("SIDocumentSenderResult [\n");
-		
 		builder.append("MessageId :" + _messageId + "\n");
 		builder.append("SenderId :" +  _senderId + "\n");
 		builder.append("RecipientId :" +  _recipientId + "\n");
@@ -29,13 +28,15 @@ public class SIDocumentSenderResult {
 	}
 	
 
+	// Getters and Setters
+	
 	public MessageId getMessageId() {
 		return _messageId;
 	}
 
 
 	public void setMessageId(MessageId messageId) {
-		this._messageId = messageId;
+		_messageId = messageId;
 	}
 
 
@@ -45,7 +46,7 @@ public class SIDocumentSenderResult {
 
 
 	public void setSenderId(ParticipantId senderId) {
-		this._senderId = senderId;
+		_senderId = senderId;
 	}
 
 
@@ -55,7 +56,7 @@ public class SIDocumentSenderResult {
 
 
 	public void setRecipientId(ParticipantId recipientId) {
-		this._recipientId = recipientId;
+		_recipientId = recipientId;
 	}
 
 
@@ -65,7 +66,7 @@ public class SIDocumentSenderResult {
 
 
 	public void setChannelId(ChannelId channelId) {
-		this._channelId = channelId;
+		_channelId = channelId;
 	}
 
 
@@ -75,7 +76,7 @@ public class SIDocumentSenderResult {
 
 
 	public void setPeppolProcessTypeId(PeppolProcessTypeId peppolProcessTypeId) {
-		this._peppolProcessTypeId = peppolProcessTypeId;
+		_peppolProcessTypeId = peppolProcessTypeId;
 	}
 
 

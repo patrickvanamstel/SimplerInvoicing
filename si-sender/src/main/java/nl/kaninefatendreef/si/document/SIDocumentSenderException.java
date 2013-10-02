@@ -1,7 +1,9 @@
 package nl.kaninefatendreef.si.document;
 
+import nl.kaninefatendreef.si.SIException;
+
 @SuppressWarnings("serial")
-public class SIDocumentSenderException extends Exception {
+public class SIDocumentSenderException extends SIException {
 
 	public SIDocumentSenderException(Throwable  t) {
 		super(t);

@@ -1,7 +1,6 @@
 package nl.kaninefatendreef.si.document;
 
 import java.net.URL;
-import java.security.Principal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +21,6 @@ import javax.net.ssl.TrustManager;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.ws.BindingProvider;
-import javax.xml.ws.WebServiceFeature;
 import javax.xml.ws.handler.Handler;
 import javax.xml.ws.handler.HandlerResolver;
 import javax.xml.ws.handler.PortInfo;
@@ -37,7 +35,6 @@ import org.w3._2009._02.ws_tra.FaultMessage;
 import org.w3._2009._02.ws_tra.Resource;
 
 import com.sun.xml.ws.developer.JAXWSProperties;
-import com.sun.xml.ws.rx.mc.api.MakeConnectionSupportedFeature;
 
 import eu.peppol.start.model.PeppolMessageHeader;
 
@@ -99,7 +96,8 @@ public class SISoapProxy implements InitializingBean{
         
         accesspointService.setHandlerResolver(new HandlerResolver() {
 
-            public List<Handler> getHandlerChain(PortInfo portInfo) {
+            @SuppressWarnings("rawtypes")
+			public List<Handler> getHandlerChain(PortInfo portInfo) {
                 List<Handler> handlerList = new ArrayList<Handler>();
                 handlerList.add(new SOAPOutboundHandler(messageHeader));
                 return handlerList;
@@ -192,9 +190,11 @@ public class SISoapProxy implements InitializingBean{
 
 	    public boolean verify(final String hostname, final SSLSession session) {
 	        try {
-	            Principal peerPrincipal = session.getPeerPrincipal();
+	            //Principal peerPrincipal = session.getPeerPrincipal();
+	        	session.getPeerPrincipal();
 	        } catch (SSLPeerUnverifiedException e) {
 	            //Log.debug("Unable to retrieve SSL peer principal " + e);
+	        	return false;
 	        }
 	        return true;
 	    }
@@ -205,7 +205,6 @@ public class SISoapProxy implements InitializingBean{
 	public void afterPropertiesSet() throws Exception {
 		 HttpsURLConnection.setDefaultHostnameVerifier(new OxalisHostnameVerifier());
          setDefaultSSLSocketFactory();
-         
          System.setProperty("com.sun.xml.ws.transport.http.client.HttpTransportPipe.dump", "" + getSoapLogging());
 	}
 	

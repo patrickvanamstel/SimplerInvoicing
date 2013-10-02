@@ -37,7 +37,6 @@ package nl.kaninefatendreef.si.document;
  * under either the MPL or the EUPL License.
  */
 
-import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;

@@ -13,9 +13,10 @@ import javax.xml.bind.JAXBException;
  */
 public class JaxbContextCache {
 
-    private static Map<Class, JAXBContext> cache = new HashMap<Class, JAXBContext>();
+    @SuppressWarnings("rawtypes")
+	private static Map<Class, JAXBContext> cache = new HashMap<Class, JAXBContext>();
 
-    public static synchronized JAXBContext getInstance(Class klasse) throws JAXBException {
+    public static synchronized JAXBContext getInstance(@SuppressWarnings("rawtypes") Class klasse) throws JAXBException {
 
         if (!cache.containsKey(klasse)) {
             cache.put(klasse, JAXBContext.newInstance(klasse));

@@ -1,7 +1,7 @@
 package nl.kaninefatendreef.si;
 
 @SuppressWarnings("serial")
-public class SIConfigurationException extends Exception{
+public class SIConfigurationException extends SIException{
 
 	public SIConfigurationException(Throwable t) {
 		super(t);

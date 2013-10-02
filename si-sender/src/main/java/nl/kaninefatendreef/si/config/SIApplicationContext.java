@@ -1,4 +1,4 @@
-package nl.kaninefatendreef.si.document;
+package nl.kaninefatendreef.si.config;
 
 import nl.kaninefatendreef.si.ssl.KeyStoreManager;
 import nl.kaninefatendreef.si.ssl.TrustStoreManager;
@@ -8,7 +8,12 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
-
+/**
+ * Singleton to use Spring Beans with the sun wsdl stack.
+ * 
+ * @author Patrick van Amstel
+ *
+ */
 @Component
 public class SIApplicationContext implements ApplicationContextAware {
 
@@ -30,11 +35,6 @@ public class SIApplicationContext implements ApplicationContextAware {
 	
 	
 	public static KeyStoreManager getKeyStoreManager() {
-		
-//		FileSystemKeyStoreManager fsk = new FileSystemKeyStoreManager();
-//        fsk.setKeyStoreFile(new File("/opt/tomcat/7-metro/oxalis/simplerinvoicing.anachron.com.jks"));
-//        fsk.setPassword("anachron");
-		
 		return _keyStoreManager;
 	}
 

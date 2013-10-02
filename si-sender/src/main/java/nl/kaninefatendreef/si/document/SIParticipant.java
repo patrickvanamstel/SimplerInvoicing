@@ -5,18 +5,21 @@ import java.net.URL;
 import eu.peppol.start.model.ChannelId;
 import eu.peppol.start.model.ParticipantId;
 
+
 public class SIParticipant {
 
 	ParticipantId _participantId = null;
 	URL _destination ;
 	ChannelId _channelId ;
+
 	
+	// Getters and Setters
 	public URL getDestination() {
 		return _destination;
 	}
 
 	public void setDestination(URL destination) {
-		this._destination = destination;
+		_destination = destination;
 	}
 
 	public ChannelId getChannelId() {
@@ -24,17 +27,15 @@ public class SIParticipant {
 	}
 
 	public void setChannelId(ChannelId channelId) {
-		this._channelId = channelId;
+		_channelId = channelId;
 	}
-
-	
 	
 	public ParticipantId getParticipantId() {
 		return _participantId;
 	}
 
 	public void setParticipantId(ParticipantId participantId) {
-		this._participantId = participantId;
+		_participantId = participantId;
 	}
 	
 }
