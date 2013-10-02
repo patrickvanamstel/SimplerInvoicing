@@ -15,6 +15,15 @@
 	<name>Simpler Invoicing Sender Library</name>
 	
 	<dependencies>
+	    
+	    
+	    <dependency>
+	        <groupId>nl.kaninefaten.si</groupId>
+	        <artifactId>si-common</artifactId>
+	        <version>${project.version}</version>
+	    </dependency>
+	    
+	    
 	    <dependency>
 	        <groupId>nl.kaninefaten.si</groupId>
 	        <artifactId>si-peppol-model</artifactId>

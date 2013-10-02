@@ -1,4 +1,4 @@
-package nl.kaninefatendreef.si.smp;
+package nl.kaninefatendreef.si.document;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -24,8 +24,8 @@ import eu.peppol.start.model.PeppolDocumentTypeIdAcronym;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={SmpConfig.class})
 @Configuration
-@PropertySource("SmpTest.properties")
-public class SmpLookupServiceTest {
+@PropertySource("DocumentTest.properties")
+public class DocumentSenderServiceTest {
 
 	@Autowired
 	SmpLookupService _smpLookupService = null;
@@ -34,8 +34,7 @@ public class SmpLookupServiceTest {
 	public void lookUpTest(){
 		URL endpointAddress = null;
 		try {
-			
-			endpointAddress = _smpLookupService.getEndpointAddress(new ParticipantId("9908:810017902"), PeppolDocumentTypeIdAcronym.INVOICE.getDocumentTypeIdentifier());
+			endpointAddress = _smpLookupService.getEndpointAddress(new ParticipantId("9913:30190386"), PeppolDocumentTypeIdAcronym.INVOICE.getDocumentTypeIdentifier());
 		} catch (SmpParticipantNotFoundException
 				| SmpSignedServiceMetaDataException e) {
 			e.printStackTrace();
