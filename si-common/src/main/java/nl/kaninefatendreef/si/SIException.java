@@ -11,4 +11,8 @@ public class SIException extends Exception{
 		super(message);
 	}
 
+	public SIException(String message, Throwable t) {
+		super(message , t);
+	}
+
 }

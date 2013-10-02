@@ -51,12 +51,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Set;
 
-/**
- * The AccessPointX509TrustManager is pointed to authenticate the remote side when using SSL.
- *
- * @author Alexander Aguirre Julcapoma(alex@alfa1lab.com)
- *         Jose Gorvenia Narvaez(jose@alfa1lab.com)
- */
 public class AccessPointX509TrustManager implements X509TrustManager {
 
 	Logger logger = LoggerFactory.getLogger(AccessPointX509TrustManager.class);

@@ -15,6 +15,7 @@ import java.util.Properties;
 
 import nl.kaninefatendreef.si.config.SIApplicationContext;
 import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
+import nl.kaninefatendreef.si.document.BlackListService;
 import nl.kaninefatendreef.si.document.DocumentSenderService;
 import nl.kaninefatendreef.si.document.SIDocumentSenderException;
 import nl.kaninefatendreef.si.document.SIDocumentSenderResult;
@@ -60,9 +61,16 @@ public class DocumentSenderServiceNoSpringTest {
 		
 		SIApplicationContext.setTrustStoreManager(trustStoreManager);
 		SIApplicationContext.setKeyStoreManager(keyStoreManager);
-		
-		SISoapProxy sISoapProxy = new SISoapProxy();
 
+		BlackListService blackListService = new BlackListService();
+		SISoapProxy sISoapProxy = new SISoapProxy();
+		sISoapProxy.setBlackListService(blackListService);
+		try {
+			sISoapProxy.afterPropertiesSet();
+		} catch (Exception e) {
+			fail(e.toString());
+		}
+		
 		_documentSenderService = new DocumentSenderService();
 		
 		_documentSenderService.setSiSoapProxy(sISoapProxy);

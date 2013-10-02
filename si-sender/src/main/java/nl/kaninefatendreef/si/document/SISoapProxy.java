@@ -35,13 +35,11 @@ import eu.peppol.start.model.PeppolMessageHeader;
 @Component
 public class SISoapProxy implements InitializingBean{
 
-	Logger logger = LoggerFactory.getLogger(SISoapProxy.class);
+	Logger _logger = LoggerFactory.getLogger(SISoapProxy.class);
 	
-	Boolean _soapLogging = false;
-	//soapDispatcher.enableSoapLogging(soapLogging);
-	
-	private Integer connectTimeout = 1000 * 60 * 120;
-	private Integer readTimeout = 1000 * 60 * 120;
+	private Boolean _soapLogging = false;
+	private Integer _connectTimeout = 1000 * 60 * 120;
+	private Integer _readTimeout = 1000 * 60 * 120;
 
 	@Autowired
 	BlackListService _blackListService = null;
@@ -53,7 +51,7 @@ public class SISoapProxy implements InitializingBean{
 			throw new RuntimeException(
 					"Recipient AP is not avalaible at the moment: "
 							+ endpointAddress.toExternalForm()
-							+ " . Please contact system administrator.");
+							+ " . ");
 		}
 
 		AccessPointService accesspointService = new AccessPointService(
@@ -68,28 +66,32 @@ public class SISoapProxy implements InitializingBean{
             }
         });
 
-        logger.debug("Getting remote resource binding port");
+        _logger.debug("Getting remote resource binding port");
+        
         Resource port = null;
         try {
         	
         	port = accesspointService.getResourceBindingPort();
             Map<String, Object> requestContext = ((BindingProvider) port).getRequestContext();
             requestContext.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, endpointAddress.toExternalForm());
-            requestContext.put(JAXWSProperties.CONNECT_TIMEOUT,  connectTimeout);
-            requestContext.put("com.sun.xml.ws.request.timeout", readTimeout);
+            requestContext.put(JAXWSProperties.CONNECT_TIMEOUT,  _connectTimeout);
+            requestContext.put("com.sun.xml.ws.request.timeout", _readTimeout);
 
-            logger.info("Performing SOAP request to: " + endpointAddress.toExternalForm());
+            _logger.info("Performing SOAP request to: " + endpointAddress.toExternalForm());
             
             port.create(soapBody);
 
-            logger.info("Sender:\t" + messageHeader.getSenderId().stringValue());
-            logger.info("Recipient:\t" + messageHeader.getRecipientId().stringValue());
-            logger.info("Destination:\t" + endpointAddress);
-            logger.info("Message " + messageHeader.getMessageId() + " has been successfully delivered");
+            StringBuilder infoMessageBuilder = new StringBuilder();
+            infoMessageBuilder.append("Sender:\t" + messageHeader.getSenderId().stringValue() + "\n");
+            infoMessageBuilder.append("Recipient:\t" + messageHeader.getRecipientId().stringValue() + "\n");
+            infoMessageBuilder.append("Destination:\t" + endpointAddress + "\n");
+            infoMessageBuilder.append("Message " + messageHeader.getMessageId() + " has been successfully delivered \n");
 
+            _logger.info(infoMessageBuilder.toString());
+            
         } catch (RuntimeException rte) {
             if (_blackListService.isAdd2ApBlackListOnTimeout() && getRootCause(rte) instanceof XMLStreamException) {
-                logger.debug("Timeout exception occured. Will add to ApBlackList: " + endpointAddress);
+                _logger.debug("Timeout exception occured. Will add to ApBlackList: " + endpointAddress);
                 _blackListService.add2ApBlackList(endpointAddress, _blackListService.getApBlackListEntryKeepTime());
             }
             throw rte;
@@ -100,10 +102,6 @@ public class SISoapProxy implements InitializingBean{
             }
         }
 	}
-	
-
-
-
 
 	public void afterPropertiesSet() throws Exception {
 		 HttpsURLConnection.setDefaultHostnameVerifier(new SISoapProxyHostnameVerifier());

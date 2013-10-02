@@ -34,11 +34,11 @@ public class DocumentSenderService implements InitializingBean{
 	@Autowired
 	private SISoapProxy _siSoapProxy = null;
 	
-	private Boolean _validateUBLDocument = true;
-
+	@Autowired 
+	SIDocumentValidator siDocumentValidator = null;
 
 	public SIDocumentSenderResult send(InputStream inputStream , SIParticipant endPointSiReceiver )
-		throws SIDocumentSenderException{
+		throws SIDocumentSenderException, SIDocumentValidationException{
 		
 		SIDocumentSenderResult siDocumentSenderResult = new SIDocumentSenderResult();
 		
@@ -49,8 +49,9 @@ public class DocumentSenderService implements InitializingBean{
 
 			// Also validate agains the xsd and or schematron
 			
-			if (_validateUBLDocument){
-				//TODO add validator
+			if (siDocumentValidator != null)
+			{
+				siDocumentValidator.validate(document);
 			}
 			
 		} catch (ParserConfigurationException | SAXException | IOException   e) {
@@ -115,14 +116,6 @@ public class DocumentSenderService implements InitializingBean{
 
 	public void setSiProxy(SIProxy siProxy) {
 		_siProxy = siProxy;
-	}
-	
-	public Boolean getValidateUBLDocument() {
-		return _validateUBLDocument;
-	}
-
-	public void setValidateUBLDocument(Boolean validateUBLDocument) {
-		_validateUBLDocument = validateUBLDocument;
 	}
 
 	public SIParticipant getEndPointSiSender() {
