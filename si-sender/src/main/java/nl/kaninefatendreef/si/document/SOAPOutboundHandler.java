@@ -66,9 +66,8 @@ import java.util.Set;
 
 public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
 
-    public static final Logger logger = LoggerFactory.getLogger(SOAPOutboundHandler.class);
+    public static final Logger _logger = LoggerFactory.getLogger(SOAPOutboundHandler.class);
     private PeppolMessageHeader _messageHeader;
-
     
     public SOAPOutboundHandler(PeppolMessageHeader messageHeader) {
         _messageHeader = messageHeader;
@@ -79,13 +78,10 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
     }
 
     public boolean handleMessage(SOAPMessageContext soapMessageContext) {
-
         try {
-
             addSoapHeader(soapMessageContext);
             return true;
-
-        } catch (Exception e) {
+        } catch ( SOAPException | JAXBException e) {
             throw new RuntimeException("Error occurred while marshalling SOAP headers", e);
         }
     }
@@ -95,7 +91,6 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
         Boolean isOutboundMessage = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
 
         if (isOutboundMessage) {
-
 
             SOAPEnvelope envelope = soapMessageContext.getMessage().getSOAPPart().getEnvelope();
             SOAPHeader header = envelope.getHeader();
@@ -125,7 +120,7 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
             processId.setValue(_messageHeader.getPeppolProcessTypeId().stringValue());
             processId.setScheme(_messageHeader.getPeppolProcessTypeId().getScheme());
 
-            Marshaller marshaller = JaxbContextCache.getInstance(String.class).createMarshaller();
+            Marshaller marshaller = JaxbContextFactoryCache.getInstance(String.class).createMarshaller();
             marshaller.marshal(objectFactory.createMessageIdentifier(messageId), new DOMResult(header));
 
             @SuppressWarnings("rawtypes")
@@ -133,17 +128,18 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
             auxChannelId.setNil(true);
             marshaller.marshal(auxChannelId, new DOMResult(header));
 
-            marshaller = JaxbContextCache.getInstance(ParticipantIdentifierType.class).createMarshaller();
+            marshaller = JaxbContextFactoryCache.getInstance(ParticipantIdentifierType.class).createMarshaller();
             marshaller.marshal(objectFactory.createRecipientIdentifier(recipientId), new DOMResult(header));
             marshaller.marshal(objectFactory.createSenderIdentifier(senderId), new DOMResult(header));
 
-            marshaller = JaxbContextCache.getInstance(DocumentIdentifierType.class).createMarshaller();
+            marshaller = JaxbContextFactoryCache.getInstance(DocumentIdentifierType.class).createMarshaller();
             marshaller.marshal(objectFactory.createDocumentIdentifier(documentId), new DOMResult(header));
 
-            marshaller = JaxbContextCache.getInstance(ProcessIdentifierType.class).createMarshaller();
+            marshaller = JaxbContextFactoryCache.getInstance(ProcessIdentifierType.class).createMarshaller();
             marshaller.marshal(objectFactory.createProcessIdentifier(processId), new DOMResult(header));
         }
     }
+    
 
     public boolean handleFault(SOAPMessageContext context) {
         return true;
@@ -151,4 +147,7 @@ public class SOAPOutboundHandler implements SOAPHandler<SOAPMessageContext> {
 
     public void close(MessageContext context) {
     }
+    
+    
+    
 }

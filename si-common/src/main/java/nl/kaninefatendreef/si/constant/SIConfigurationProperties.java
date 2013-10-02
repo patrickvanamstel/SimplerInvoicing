@@ -11,8 +11,8 @@ package nl.kaninefatendreef.si.constant;
  */
 public enum SIConfigurationProperties {
 
-	PEPPOL_SML_DNS_NAME					("nl.kaninefaten.si.peppol.dns.name"),
-	PEPPOL_SML_DNS_IP					("nl.kaninefaten.si.peppol.dns.ip"),
+	PEPPOL_SML_DNS_NAME					("nl.kaninefatendreef.si.peppol.dns.name"),
+	PEPPOL_SML_DNS_IP					("nl.kaninefatendreef.si.peppol.dns.ip"),
 	PEPPOL_SML_DNS_VALIDATE				("nl.kaninefatendreef.si.peppol.dns.validate"),
 	PEPPOL_SML_DNS_PROXY_NAME			("nl.kaninefatendreef.si.peppol.dns.proxy.name"),
 	PEPPOL_SML_DNS_PROXY_PORT			("nl.kaninefatendreef.si.peppol.dns.proxy.port"),

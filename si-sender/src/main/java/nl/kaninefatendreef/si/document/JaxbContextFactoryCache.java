@@ -6,12 +6,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 
-/**
- * TODO verwijder
- * @author patrick
- *
- */
-public class JaxbContextCache {
+
+public class JaxbContextFactoryCache {
 
     @SuppressWarnings("rawtypes")
 	private static Map<Class, JAXBContext> cache = new HashMap<Class, JAXBContext>();
