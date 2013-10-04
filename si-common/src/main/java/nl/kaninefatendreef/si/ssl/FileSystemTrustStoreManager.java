@@ -19,9 +19,9 @@ public class FileSystemTrustStoreManager implements TrustStoreManager {
 
 	private File _keyStoreFile = null;
 	private String _password = null;
-
 	private KeyStore _truststore = null;
-
+	private Set<TrustAnchor> _trustAnchors = null;
+	
 	@Override
 	public String configurationInformationAsString() {
 		StringBuilder builder = new StringBuilder();
@@ -31,12 +31,10 @@ public class FileSystemTrustStoreManager implements TrustStoreManager {
 		}
 		return builder.toString();
 	}
-
 	
 	public KeyStore getTruststore() throws SIConfigurationException {
 		
 		if (_truststore == null){
-			
 			FileInputStream inputStream = null;
 	        try {
 	        	inputStream = new FileInputStream(getKeyStoreFile());
@@ -74,10 +72,10 @@ public class FileSystemTrustStoreManager implements TrustStoreManager {
 	}
 
 	public void setPassword(String password) {
-		this._password = password;
+		_password = password;
 	}
 
-	private Set<TrustAnchor> _trustAnchors = null;
+	
 	
 	@Override
 	public Set<TrustAnchor> getTrustAnchors() throws SIConfigurationException {
@@ -93,7 +91,5 @@ public class FileSystemTrustStoreManager implements TrustStoreManager {
 		}
 		_trustAnchors = pkixParameters.getTrustAnchors(); 
 		return _trustAnchors;
-		
-
 	}
 }
