@@ -197,7 +197,7 @@ public class SAMLCallbackHandler implements CallbackHandler {
                 statements);
 
         KeyStoreManager peppolKeyStore = SpringServerContext.getPeppolKeyStore();
-        return sign(assertion, peppolKeyStore.getOurCertificate(), peppolKeyStore.getOurPrivateKey());
+        return sign(assertion, peppolKeyStore.getCertificate(), peppolKeyStore.getPrivateKey());
     }
 
     private GregorianCalendar getNowOffsetByHours(int hours) {

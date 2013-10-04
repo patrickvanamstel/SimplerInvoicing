@@ -45,7 +45,7 @@ public final class KeyStoreCallbackHandler implements CallbackHandler {
             if (callback instanceof KeyStoreCallback) {
                 KeyStore keystore = null;
 				try {
-					keystore = peppolKeyStore.getOurKeyStore();
+					keystore = peppolKeyStore.getKeyStore();
 				} catch (SIConfigurationException e) {
 					_logger.error("Returning of the key store failed " + peppolKeyStore , e);
 					throw new SIConfigurationRuntimeException(e);
@@ -56,7 +56,7 @@ public final class KeyStoreCallbackHandler implements CallbackHandler {
 
                 PrivateKey privateKey = null;
 				try {
-					privateKey = peppolKeyStore.getOurPrivateKey();
+					privateKey = peppolKeyStore.getPrivateKey();
 				} catch (SIConfigurationException e) {
 					_logger.error("Returning of private key in the key store failed " + peppolKeyStore , e);
 					throw new SIConfigurationRuntimeException(e);
