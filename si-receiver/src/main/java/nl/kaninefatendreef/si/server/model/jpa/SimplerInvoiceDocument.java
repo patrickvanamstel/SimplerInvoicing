@@ -15,11 +15,6 @@ import javax.persistence.Table;
 @Table(name = "SIMPLER_INVOICE_DOCUMENT")
 public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument{
 
-	/*
-	 * No _ naming.
-	 * Otherwise the default finder implentation in spring data does not work.
-	 * 
-	 */
 	
 	@Id
 	@GeneratedValue	(strategy = GenerationType.IDENTITY)
@@ -69,10 +64,6 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 	@Column(name = "PROCESS_STATUS_MS")
 	Long processStatusTimeInMs;
 
-	
-//	@Transient
-//	UUID uuid;
-	
 	@OneToOne(cascade=CascadeType.ALL)
 	SimplerInvoiceDocumentContent content;
 	

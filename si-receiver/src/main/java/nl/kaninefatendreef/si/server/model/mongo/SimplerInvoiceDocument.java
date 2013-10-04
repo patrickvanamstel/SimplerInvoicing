@@ -1,16 +1,8 @@
 package nl.kaninefatendreef.si.server.model.mongo;
 
 
-
-
-import java.util.UUID;
-
-import javax.persistence.Column;
-
 import org.springframework.data.annotation.Id;
-//import javax.persistence.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 
 @Document(collection = "message")
 public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument{
@@ -24,9 +16,6 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 	@Id
 	private String id;
 	
-	UUID uuid;
-	
-
 	String fileName;
 	String messageId;
 	String channelId;
@@ -158,23 +147,12 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 		this.updateTimeInMs = updateTimeInMs;
 	}
 
-	public UUID getUuid() {
-		return uuid;
-	}
-
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
-	}
-
-	
 	@Override
 	public void setContent(
 			nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent content) {
 		this.content = (SimplerInvoiceDocumentContent) content;
 
 		}
-		
 
 	@Override
 	public void setProcessStatus(String processStatus) {

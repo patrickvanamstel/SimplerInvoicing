@@ -16,13 +16,13 @@ public class SimplerInvoiceDocumentContent implements nl.kaninefatendreef.si.ser
 	@GeneratedValue
     private Long id;
 	
-	
 	@Column(name = "DOCUMENT")
 	byte [] document = null;
 
 	public byte[] getDocument() {
 		return document;
 	}
+	
 	public void setDocument(byte[] document) {
 		this.document = document;
 	}
