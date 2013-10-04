@@ -1,0 +1,11 @@
+
+# Een property
+com.anachron.si.server.db.mongodb.name=si-test-database
+
+com.anachron.peppol.configuration.ssl.peppol.truststore.location=/home/developer/simplerinvoicing/oxalis2.0/oxalis/oxalis-commons/src/main/resources/truststore.jks
+com.anachron.peppol.configuration.ssl.peppol.truststore.password=peppol
+com.anachron.peppol.configuration.ssl.peppol.keystore.location=/opt/tomcat/7-metro/oxalis/simplerinvoicing.anachron.com.jks
+com.anachron.peppol.configuration.ssl.peppol.keystore.password=anachron
+com.anachron.peppol.configuration.accessPointIdentifier=810017902
+com.anachron.peppol.soap.trace.enabled=false
+        

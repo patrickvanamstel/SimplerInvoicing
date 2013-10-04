@@ -101,7 +101,8 @@ public class DocumentSenderServiceNoSpringTest {
 			inputStream.close();
 			
 			// This is not a unit test url
-			endPointSiReceiver.setDestination(new URL("https://project.anachron.com/oxalis/accessPointService"));
+			//endPointSiReceiver.setDestination(new URL("https://project.anachron.com/oxalis/accessPointService"));
+			endPointSiReceiver.setDestination(new URL("http://localhost:8080/si-receiver/accessPointService"));
 			endPointSiReceiver.setChannelId(new ChannelId("CH1"));
 			endPointSiReceiver.setParticipantId(new ParticipantId("9908:1000000110"));
 
