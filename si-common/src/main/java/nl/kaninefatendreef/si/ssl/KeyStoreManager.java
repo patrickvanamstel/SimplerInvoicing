@@ -14,10 +14,4 @@ public interface KeyStoreManager {
 	public PrivateKey getPrivateKey()throws SIConfigurationException;
 	public X509Certificate getCertificate() throws SIConfigurationException;
 
-	public PrivateKey getOurPrivateKey() throws SIConfigurationException;
-
-	public X509Certificate getOurCertificate() throws SIConfigurationException;
-
-	public KeyStore getOurKeyStore() throws SIConfigurationException;
-
 }

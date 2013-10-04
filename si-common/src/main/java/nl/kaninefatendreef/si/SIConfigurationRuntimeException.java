@@ -11,4 +11,7 @@ public class SIConfigurationRuntimeException extends RuntimeException{
 		super(message);
 	}
 
+	public SIConfigurationRuntimeException(String message,Throwable e) {
+		super(message,e);
+	}
 }

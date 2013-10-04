@@ -11,4 +11,9 @@ public class SIConfigurationException extends SIException{
 		super(message);
 	}
 
+	public SIConfigurationException(String message , Throwable t) {
+		super(message, t);
+	}
+
+	
 }
