@@ -21,9 +21,18 @@ public enum SIConfigurationProperties {
 	SI_KEYSTORE_FILE 					("nl.kaninefatendreef.si.keystore.file"),
 	SI_KEYSTORE_PASS 					("nl.kaninefatendreef.si.keystore.password"),
 	SI_TRUSTSTORE_FILE 					("nl.kaninefatendreef.si.truststore.file"),
-	SI_TRUSTSTORE_PASS 					("nl.kaninefatendreef.si.truststore.password");	
+	SI_TRUSTSTORE_PASS 					("nl.kaninefatendreef.si.truststore.password"),	
 
-    
+    SI_RECEIVER_RDBMS_DRIVER_HIBERNATE_DIALECT 		("hibernate.dialect"), 
+    SI_RECEIVER_RDBMS_DRIVER_HIBERNATE_HM2DLLAUTO 	("hibernate.hbm2ddl.auto"),  
+    SI_RECEIVER_RDBMS_DRIVER_HIBERNATE_SHOW_SQL 	("hibernate.show_sql" ), 
+    SI_RECEIVER_RDBMS_DRIVER_HIBERNATE_FORMAT_SQL 	("hibernate.format_sql"), 
+    SI_RECEIVER_RDBMS_DRIVER_CLASSNAME				("nl.kaninefatendreef.si.rdbms.classname"),
+    SI_RECEIVER_RDBMS_DRIVER_URL					("nl.kaninefatendreef.si.rdbms.url"),
+    SI_RECEIVER_RDBMS_DRIVER_USERNAME				("nl.kaninefatendreef.si.rdbms.username"),
+    SI_RECEIVER_RDBMS_DRIVER_PASSWORD				("nl.kaninefatendreef.si.rdbms.password");
+	
+	
     
     private String _value;
     

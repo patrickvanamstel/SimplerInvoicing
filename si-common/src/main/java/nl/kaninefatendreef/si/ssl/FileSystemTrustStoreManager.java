@@ -3,10 +3,14 @@ package nl.kaninefatendreef.si.ssl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.security.cert.PKIXParameters;
+import java.security.cert.TrustAnchor;
+import java.util.Set;
 
 import nl.kaninefatendreef.si.SIConfigurationException;
 
@@ -73,4 +77,23 @@ public class FileSystemTrustStoreManager implements TrustStoreManager {
 		this._password = password;
 	}
 
+	private Set<TrustAnchor> _trustAnchors = null;
+	
+	@Override
+	public Set<TrustAnchor> getTrustAnchors() throws SIConfigurationException {
+
+		if (_trustAnchors != null){
+			return _trustAnchors;
+		}
+		PKIXParameters pkixParameters = null;
+		try {
+			pkixParameters = new  PKIXParameters( getTruststore());
+		} catch (KeyStoreException | InvalidAlgorithmParameterException | SIConfigurationException e) {
+			throw new SIConfigurationException(e);
+		}
+		_trustAnchors = pkixParameters.getTrustAnchors(); 
+		return _trustAnchors;
+		
+
+	}
 }

@@ -165,5 +165,82 @@ public class FileSystemKeyStoreManager implements KeyStoreManager {
 	}
 
 
+	@Override
+	public PrivateKey getOurPrivateKey() throws SIConfigurationException {
+		if (_privateKey != null){
+			return _privateKey;
+		}
+		try {
+			Enumeration<String> aliasEnumeration = getOurKeyStore().aliases();
+
+			while (aliasEnumeration.hasMoreElements()) {
+				String alias = aliasEnumeration.nextElement();
+				if (getOurKeyStore().isKeyEntry(alias)) {
+					Key key = getOurKeyStore().getKey(alias,
+							_password.toCharArray());
+					if (key instanceof PrivateKey) {
+						_privateKey = (PrivateKey) key;
+						return _privateKey;
+					}
+				}
+			}
+
+		} catch (KeyStoreException | UnrecoverableKeyException
+				| NoSuchAlgorithmException e) {
+			throw new SIConfigurationException(e);
+		}
+		throw new SIConfigurationException("Could not find our private key in the keystore "		+ getKeyStoreFile().getAbsolutePath());
+	}
+
+	@Override
+	public X509Certificate getOurCertificate()
+			throws SIConfigurationException {
+		if (_x509Certificate != null) {
+			return _x509Certificate;
+		}
+		try {
+			Enumeration<String> aliasEnumeration = getOurKeyStore().aliases();
+			while (aliasEnumeration.hasMoreElements()) {
+				String alias = aliasEnumeration.nextElement();
+
+				if (getOurKeyStore().isCertificateEntry(alias)) {
+					_x509Certificate =  (X509Certificate) getOurKeyStore()
+							.getCertificate(alias);
+					return _x509Certificate;
+				}
+			}
+
+		} catch (KeyStoreException e) {
+			throw new SIConfigurationException(e);
+		}
+		throw new SIConfigurationException("Could not find our certicate in the keystore " + getKeyStoreFile().getAbsolutePath());
+	}
+
+
+	@Override
+	public KeyStore getOurKeyStore() throws SIConfigurationException {
+		if (_keyStore == null){
+			
+			FileInputStream inputStream = null;
+	        try {
+	        	inputStream = new FileInputStream(_keyStoreFile);
+	            KeyStore keyStore = KeyStore.getInstance("JKS");
+				keyStore.load(inputStream, _password.toCharArray());
+				_keyStore = keyStore;
+			} catch (NoSuchAlgorithmException | CertificateException | IOException | KeyStoreException e) {
+				throw new SIConfigurationException(e);
+			}finally{
+				if (inputStream != null){
+					try {
+						inputStream.close();
+					} catch (IOException e) {
+						throw new IllegalStateException(e);
+					}
+				}
+			}
+		}
+		return _keyStore;
+	}
+
 
 }

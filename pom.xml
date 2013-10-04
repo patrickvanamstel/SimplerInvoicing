@@ -12,6 +12,7 @@
 	
 	<properties>
 	 	<spring.version>3.2.3.RELEASE</spring.version>
+		<spring.haeoas.version>0.6.0.RELEASE</spring.haeoas.version>
 	</properties>
 
 	<modules>
@@ -51,13 +52,57 @@
 				<version>${spring.version}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-orm</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-tx</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.hateoas</groupId>
+				<artifactId>spring-hateoas</artifactId>
+				<version>${spring.haeoas.version}</version>
+			</dependency>
+
+       			<dependency>
+		    		<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>2.2</version>
+		    	</dependency>
+			<dependency>
+				<groupId>javax.servlet</groupId>
+				<artifactId>javax.servlet-api</artifactId>
+				<version>3.0.1</version>
+				<scope>provided</scope>
+			</dependency>
 
 			<!-- Test dependencies -->
 			<dependency>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-					<version>4.11</version>
-					<scope>test</scope>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
