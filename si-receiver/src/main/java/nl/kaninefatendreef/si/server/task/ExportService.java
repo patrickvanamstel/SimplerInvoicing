@@ -4,11 +4,11 @@ import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 
 public interface ExportService {
 
-	void export(SimplerInvoiceDocument simplerInvoiceDocument) throws Exception;
+	void export(SimplerInvoiceDocument simplerInvoiceDocument) throws SiExportException;
 
-	boolean exportSuccess(SimplerInvoiceDocument simplerInvoiceDocument) throws Exception;
+	boolean exportSuccess(SimplerInvoiceDocument simplerInvoiceDocument) throws SiExportException;
 
-	boolean exportException(SimplerInvoiceDocument simplerInvoiceDocument);
+	boolean exportException(SimplerInvoiceDocument simplerInvoiceDocument)throws SiExportException;
 
 
 }

@@ -32,12 +32,19 @@ public class ExportReceivedDocuments {
 				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
 				simplerInvoiceDocument.setProcessed(true);
 				_activeDocumentRepository.save(simplerInvoiceDocument);
-
 				exportService.export(simplerInvoiceDocument);
 				simplerInvoiceDocument.setProcessStatus("SUCCESS_EXPORT");
 				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
 				_activeDocumentRepository.save(simplerInvoiceDocument);
-			}catch (Throwable t){
+			}catch (SiExportBackendDownException downException){
+				simplerInvoiceDocument.setProcessStatus("EXCEPION_BACKEND_DOWN_EXPORT");
+				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
+				_activeDocumentRepository.save(simplerInvoiceDocument);
+			}catch (SiExportImplementationException impleException){
+				simplerInvoiceDocument.setProcessStatus("EXCEPION_IMPL_EXPORT");
+				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
+				_activeDocumentRepository.save(simplerInvoiceDocument);
+			} catch (SiExportException e) {
 				simplerInvoiceDocument.setProcessStatus("EXCEPION_EXPORT");
 				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
 				_activeDocumentRepository.save(simplerInvoiceDocument);
