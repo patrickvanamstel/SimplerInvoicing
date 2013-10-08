@@ -2,7 +2,6 @@ package nl.kaninefatendreef.si.server.repository;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 

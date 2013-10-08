@@ -1,7 +1,6 @@
 package nl.kaninefatendreef.si.server.repository.mongo;
 
 import java.util.List;
-import java.util.UUID;
 
 import nl.kaninefatendreef.si.server.model.mongo.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.repository.AbstractDocumentRepository;
