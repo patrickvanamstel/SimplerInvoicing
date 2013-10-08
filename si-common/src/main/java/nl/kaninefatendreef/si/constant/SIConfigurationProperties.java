@@ -30,7 +30,9 @@ public enum SIConfigurationProperties {
     SI_RECEIVER_RDBMS_DRIVER_CLASSNAME				("nl.kaninefatendreef.si.rdbms.classname"),
     SI_RECEIVER_RDBMS_DRIVER_URL					("nl.kaninefatendreef.si.rdbms.url"),
     SI_RECEIVER_RDBMS_DRIVER_USERNAME				("nl.kaninefatendreef.si.rdbms.username"),
-    SI_RECEIVER_RDBMS_DRIVER_PASSWORD				("nl.kaninefatendreef.si.rdbms.password");
+    SI_RECEIVER_RDBMS_DRIVER_PASSWORD				("nl.kaninefatendreef.si.rdbms.password"),
+    SI_RECEIVER_EXPORT_COMPONENT_NAME				("nl.kaninefatendreef.si.export.component.name"),
+	SI_RECEIVER_VALIDATOR_COMPONENT_NAME			("nl.kaninefatendreef.si.validator.component.name");
 	
 	
     
