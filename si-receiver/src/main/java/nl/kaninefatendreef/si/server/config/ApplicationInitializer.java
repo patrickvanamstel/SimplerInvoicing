@@ -10,6 +10,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.anachron.si.ip.export.config.ExportServiceConfig;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
 
@@ -22,19 +23,21 @@ public class ApplicationInitializer implements WebApplicationInitializer {
 		AnnotationConfigWebApplicationContext annotationConfigWebApplicationContext = new AnnotationConfigWebApplicationContext();
 		
 		
-		String customConfiguration = servletContext.getInitParameter("nl.kaninefatendreef.si.config.custom");
-		
-		if (customConfiguration != null && !customConfiguration.equals("")){
-			try {
-				Class customConfigurationClass = Class.forName(customConfiguration);
-				annotationConfigWebApplicationContext.register(SpringConfig.class , customConfigurationClass);
-			} catch (ClassNotFoundException e) {
-				_logger.error("Class with name " + customConfiguration + " not found in the environment with property nl.kaninefatendreef.si.config.custom", e);
-			}
-			
-		}else{
-			annotationConfigWebApplicationContext.register(SpringConfig.class );	
-		}
+//		String customConfiguration = servletContext.getInitParameter("nl.kaninefatendreef.si.config.custom");
+//		
+//		if (customConfiguration != null && !customConfiguration.equals("")){
+//			try {
+//				Class customConfigurationClass = Class.forName(customConfiguration);
+//				annotationConfigWebApplicationContext.register(SpringConfig.class , customConfigurationClass);
+//			} catch (ClassNotFoundException e) {
+//				_logger.error("Class with name " + customConfiguration + " not found in the environment with property nl.kaninefatendreef.si.config.custom", e);
+//			}
+//			
+//		}else{
+
+			annotationConfigWebApplicationContext.register(SpringConfig.class, ExportServiceConfig.class);
+			//annotationConfigWebApplicationContext.scan("com.anachron.si.ip.export");
+//		}
 		
 		
 		

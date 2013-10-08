@@ -1,11 +1,14 @@
 package nl.kaninefatendreef.si.server.config;
 
+import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
 import nl.kaninefatendreef.si.server.IncommingMessageValidator;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
 import nl.kaninefatendreef.si.server.ssl.SimplerInvoicingCertificateValidator;
 import nl.kaninefatendreef.si.ssl.KeyStoreManager;
 import nl.kaninefatendreef.si.ssl.TrustStoreManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -28,6 +31,9 @@ public class SpringServerContext implements ApplicationContextAware {
 	private static ActiveDocumentRepository _activeDocumentRepository = null;
 	private static IncommingMessageValidator _incommingMessageValidator = null;
 
+	private static Logger logger = LoggerFactory.getLogger(SpringServerContext.class); 
+	
+	
 	public static ActiveDocumentRepository getActiveDocumentRepository(){
 		if (_activeDocumentRepository == null){
 			_activeDocumentRepository = _applicationContext.getBean(ActiveDocumentRepository.class);
@@ -73,8 +79,31 @@ public class SpringServerContext implements ApplicationContextAware {
 			}else if (validationBeans.length == 1){
 				_incommingMessageValidator = _applicationContext.getBean(IncommingMessageValidator.class);	
 			}else if (validationBeans.length == 2){
+				for (String validationBean : validationBeans){
+					if (!validationBean.equals("incommingNullMessageValidator")){
+						_incommingMessageValidator = (IncommingMessageValidator) _applicationContext.getBean(validationBean);		
+					}
+				}
+				
+			}else if (validationBeans.length > 2){
+
+				boolean found = false;
+				String componentName = _applicationContext.getEnvironment().getProperty(SIConfigurationProperties.SI_RECEIVER_EXPORT_COMPONENT_NAME.getValue());
+				for (String validationBean : validationBeans){
+
+					if (!validationBean.equals("incommingNullMessageValidator") && validationBean.equals(componentName)){
+						_incommingMessageValidator = (IncommingMessageValidator) _applicationContext.getBean(validationBean);
+						found = true;
+					}
+				}
+				if (!found){
+					logger.error("Component with name " + componentName + " not found in environment with property " + SIConfigurationProperties.SI_RECEIVER_EXPORT_COMPONENT_NAME.getValue() );
+				}
+
 				
 				
+			}else{
+				_incommingMessageValidator = _applicationContext.getBean(IncommingMessageValidator.class);
 			}
 			
 			
