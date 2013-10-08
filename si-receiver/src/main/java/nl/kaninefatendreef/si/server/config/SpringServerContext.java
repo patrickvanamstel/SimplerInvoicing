@@ -1,5 +1,6 @@
 package nl.kaninefatendreef.si.server.config;
 
+import nl.kaninefatendreef.si.server.IncommingMessageValidator;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
 import nl.kaninefatendreef.si.server.ssl.SimplerInvoicingCertificateValidator;
 import nl.kaninefatendreef.si.ssl.KeyStoreManager;
@@ -25,6 +26,7 @@ public class SpringServerContext implements ApplicationContextAware {
 	private static KeyStoreManager _peppolKeyStore = null;
 	private static SimplerInvoicingCertificateValidator _simplerInvoicingCertificateValidator = null;
 	private static ActiveDocumentRepository _activeDocumentRepository = null;
+	private static IncommingMessageValidator _incommingMessageValidator = null;
 
 	public static ActiveDocumentRepository getActiveDocumentRepository(){
 		if (_activeDocumentRepository == null){
@@ -59,6 +61,27 @@ public class SpringServerContext implements ApplicationContextAware {
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
 		SpringServerContext._applicationContext = applicationContext;
+	}
+
+
+	public static IncommingMessageValidator getIncommingMessageValidator() {
+		if (_incommingMessageValidator == null){
+			
+			String [] validationBeans = _applicationContext.getBeanNamesForType(IncommingMessageValidator.class);
+			if (validationBeans.length == 0){
+				throw new IllegalStateException("There must be at least 1 bean for the validation of the incomming message");
+			}else if (validationBeans.length == 1){
+				_incommingMessageValidator = _applicationContext.getBean(IncommingMessageValidator.class);	
+			}else if (validationBeans.length == 2){
+				
+				
+			}
+			
+			
+		
+		
+		}
+		return _incommingMessageValidator;
 	}
 
 }

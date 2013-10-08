@@ -53,7 +53,6 @@ public class SpringConfig implements InitializingBean{
 		
 		return new AccessPointIdentifier(environment.getProperty("com.anachron.peppol.configuration.accessPointIdentifier"));
 	}
-
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {

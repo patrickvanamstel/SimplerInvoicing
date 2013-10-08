@@ -32,9 +32,30 @@ public class ExportReceivedDocuments {
 				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
 				simplerInvoiceDocument.setProcessed(true);
 				_activeDocumentRepository.save(simplerInvoiceDocument);
-				exportService.export(simplerInvoiceDocument);
+
+				ExportServiceResult exportServiceResult = exportService.export(simplerInvoiceDocument);
+				
 				simplerInvoiceDocument.setProcessStatus("SUCCESS_EXPORT");
 				simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
+				
+				if (exportServiceResult != null){
+					simplerInvoiceDocument.setProperty1Name(exportServiceResult.getProperty1Name());
+					simplerInvoiceDocument.setProperty1Value(exportServiceResult.getProperty1Value());
+
+					simplerInvoiceDocument.setProperty2Name(exportServiceResult.getProperty2Name());
+					simplerInvoiceDocument.setProperty2Value(exportServiceResult.getProperty2Value());
+
+					simplerInvoiceDocument.setProperty3Name(exportServiceResult.getProperty3Name());
+					simplerInvoiceDocument.setProperty3Value(exportServiceResult.getProperty3Value());
+
+					simplerInvoiceDocument.setProperty4Name(exportServiceResult.getProperty4Name());
+					simplerInvoiceDocument.setProperty4Value(exportServiceResult.getProperty4Value());
+
+					simplerInvoiceDocument.setProperty5Name(exportServiceResult.getProperty5Name());
+					simplerInvoiceDocument.setProperty5Value(exportServiceResult.getProperty5Value());
+				
+				}
+				
 				_activeDocumentRepository.save(simplerInvoiceDocument);
 			}catch (SiExportBackendDownException downException){
 				simplerInvoiceDocument.setProcessStatus("EXCEPION_BACKEND_DOWN_EXPORT");

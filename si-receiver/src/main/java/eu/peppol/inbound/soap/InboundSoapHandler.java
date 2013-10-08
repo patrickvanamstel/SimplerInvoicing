@@ -32,7 +32,6 @@ public class InboundSoapHandler implements SOAPHandler<SOAPMessageContext> {
         return Collections.emptySet();
     }
 
-
     @Override
     public boolean handleMessage(SOAPMessageContext soapMessageContext) {
         Boolean outboundProperty = (Boolean) soapMessageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);

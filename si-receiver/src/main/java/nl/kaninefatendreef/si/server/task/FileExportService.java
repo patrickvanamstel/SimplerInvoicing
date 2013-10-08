@@ -14,7 +14,7 @@ public class FileExportService implements ExportService{
 	File repository = new File("/tmp/sirepo");
 	
 	@Override
-	public void export(SimplerInvoiceDocument simplerInvoiceDocument) throws SiExportException{
+	public ExportServiceResult export(SimplerInvoiceDocument simplerInvoiceDocument) throws SiExportException{
 	
 		repository.mkdirs();
 		
@@ -33,7 +33,7 @@ public class FileExportService implements ExportService{
 				throw new IllegalStateException(e);
 			}
 		}
-		
+		return null;
 		
 	}
 

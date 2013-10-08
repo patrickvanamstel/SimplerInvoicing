@@ -94,7 +94,12 @@ public class SpringRDBMSConfig {
 			localContainerEntityManagerFactoryBean.setDataSource(dataSource());
 			
 			_logger.debug("Scanning packages for entities " + SIServerProperties.SI_RECEIVER_RDBMS_JPA_MODEL.getValue());
+			
+			// Add configurable properties
 			localContainerEntityManagerFactoryBean.setPackagesToScan(new String[] { SIServerProperties.SI_RECEIVER_RDBMS_JPA_MODEL.getValue() });
+			
+			
+			
 			JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 			localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);
 			

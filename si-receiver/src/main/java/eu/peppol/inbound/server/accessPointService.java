@@ -112,7 +112,6 @@ public class accessPointService {
     	KeyStoreException {
 
         try {
-
       	
             // Retrieves the PEPPOL message header
             PeppolMessageHeader messageHeader = getPeppolMessageHeader();
@@ -135,7 +134,31 @@ public class accessPointService {
             Document document = ((Element) body.getAny().get(0)).getOwnerDocument();
             // Invokes the message persistence
 
-            persistMessage(messageHeader, document);
+            ByteArrayOutputStream xmlDocumentByteArrayOutputStream = new ByteArrayOutputStream();
+            Writer writer = new BufferedWriter(new OutputStreamWriter(xmlDocumentByteArrayOutputStream, "UTF-8"));
+            StreamResult result = new StreamResult(writer);
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer transformer;
+            transformer = tf.newTransformer();
+            transformer.transform(new DOMSource(document), result);
+            xmlDocumentByteArrayOutputStream.close();
+           
+            byte [] xmlDocument = xmlDocumentByteArrayOutputStream.toByteArray();
+            
+            
+            if (SpringServerContext.getIncommingMessageValidator().validateIncommingMessage()){
+            	String validationMessage = validateMessage(messageHeader, xmlDocument);
+            	if (validationMessage != null){
+                    StartException faultInfo = new StartException();
+                    faultInfo.setAction("http://busdox.org/2010/02/channel/fault");
+                    faultInfo.setFaultcode("s:Sender");
+                    faultInfo.setFaultstring("Incomming message validation fault");
+                    faultInfo.setDetails("Error in document handling. Message is discarded with the following reason ( " + validationMessage + ").");
+                    throw new FaultMessage("ERROR:", faultInfo);
+            	}
+            }
+            
+            persistMessage(messageHeader, xmlDocument);
 
             CreateResponse createResponse = new CreateResponse();
             
@@ -158,7 +181,41 @@ public class accessPointService {
         }
     }
 
-    private Principal fetchAccessPointPrincipal(WebServiceContext webServiceContext) {
+    private String validateMessage(PeppolMessageHeader peppolMessageHeader,
+			byte[] xmlDocument) {
+
+    	
+    	StringBuilder messageBuilder = new StringBuilder();
+    	// Kijken of we deze persoon kennen
+    	
+    	String recipientValidationMessage = SpringServerContext.getIncommingMessageValidator().validateRecipientId(peppolMessageHeader.getRecipientId().stringValue());
+    	
+    	if (recipientValidationMessage != null && !recipientValidationMessage.equals("")){
+    		messageBuilder.append("Validation of the recipient failed with the following reason : " + recipientValidationMessage + "\n");
+    	}
+    	
+    	
+    	String senderValidationMessage = SpringServerContext.getIncommingMessageValidator().validateSenderId(peppolMessageHeader.getSenderId().stringValue());
+    	
+    	if (senderValidationMessage != null && !senderValidationMessage.equals("")){
+    		messageBuilder.append("Validation of the sender failed with the following reason : " + senderValidationMessage + "\n");
+    	}
+
+        // Kijken of document valide is
+    	
+    	String documentValidationMessage = SpringServerContext.getIncommingMessageValidator().validateIncommingDocument(xmlDocument);
+        
+        
+        
+        if (messageBuilder.equals("")){
+        	return null;
+        }
+        return messageBuilder.toString();
+        
+		
+	}
+
+	private Principal fetchAccessPointPrincipal(WebServiceContext webServiceContext) {
 
         // Retrieves the Principal from the request
         Subject subj = null;
@@ -204,7 +261,7 @@ public class accessPointService {
      * @param document                   the XML document.
      *
      */
-    void persistMessage(PeppolMessageHeader peppolMessageHeader, Document document) {
+    void persistMessage(PeppolMessageHeader peppolMessageHeader, byte [] xmlDocument) {
 
     	long startPersistMeasurement = System.currentTimeMillis();
         
@@ -214,20 +271,10 @@ public class accessPointService {
             SimplerInvoiceDocument simplerInvoicingMessage = SpringServerContext.getActiveDocumentRepository().createSimplerInvoiceDocument();
             {
 	            // Fetching all information from the message
-	            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 	
-	            Writer writer = new BufferedWriter(new OutputStreamWriter(byteArrayOutputStream, "UTF-8"));
-	
-	            StreamResult result = new StreamResult(writer);
-	
-	            TransformerFactory tf = TransformerFactory.newInstance();
-	            Transformer transformer;
-	            transformer = tf.newTransformer();
-	            transformer.transform(new DOMSource(document), result);
-	            byteArrayOutputStream.close();
 
 	            SimplerInvoiceDocumentContent content = SpringServerContext.getActiveDocumentRepository().createSimplerInvoiceDocumentContent();
-	            content.setDocument(byteArrayOutputStream.toByteArray());
+	            content.setDocument(xmlDocument);
 	            simplerInvoicingMessage.setContent(content);
             
             }
