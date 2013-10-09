@@ -4,6 +4,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import nl.kaninefatendreef.si.server.json.SiDirectoryEntryJson;
+import nl.kaninefatendreef.si.server.model.SiDirectoryEntry;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.WebApplicationInitializer;
@@ -11,6 +14,7 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.DispatcherServlet;
 
 import com.anachron.si.ip.export.config.ExportServiceConfig;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 
 public class ApplicationInitializer implements WebApplicationInitializer {
 
@@ -48,6 +52,9 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         
         servletContext.addListener(new com.sun.xml.ws.transport.http.servlet.WSServletContextListener());
 
+        SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
+        resolver.addMapping(SiDirectoryEntry.class, SiDirectoryEntryJson.class);
+        
 	}
 
 	

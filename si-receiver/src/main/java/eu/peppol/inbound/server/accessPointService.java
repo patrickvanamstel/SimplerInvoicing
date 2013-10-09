@@ -145,15 +145,15 @@ public class accessPointService {
            
             byte [] xmlDocument = xmlDocumentByteArrayOutputStream.toByteArray();
             
-            
             if (SpringServerContext.getIncommingMessageValidator().validateIncommingMessage()){
             	String validationMessage = validateMessage(messageHeader, xmlDocument);
-            	if (validationMessage != null){
+            	if (validationMessage != null && !validationMessage.trim().equals("")){
                     StartException faultInfo = new StartException();
                     faultInfo.setAction("http://busdox.org/2010/02/channel/fault");
                     faultInfo.setFaultcode("s:Sender");
                     faultInfo.setFaultstring("Incomming message validation fault");
-                    faultInfo.setDetails("Error in document handling. Message is discarded with the following reason ( " + validationMessage + ").");
+                    faultInfo.setDetails("Error in document handling. Message is discarded with the following reason(s) ( \n\n" + validationMessage + "\n\n).");
+                    _logger.error("Validation of incomming message failed " + validationMessage);
                     throw new FaultMessage("ERROR:", faultInfo);
             	}
             }
@@ -164,7 +164,10 @@ public class accessPointService {
             
             return createResponse;
 
-        } catch (Throwable e) {
+        } catch (FaultMessage e){
+        	throw (e);
+        }
+        catch (Throwable e) {
 
         	_logger.error("Problem while handling inbound document: " + e.getMessage(), e);
 
@@ -191,21 +194,22 @@ public class accessPointService {
     	String recipientValidationMessage = SpringServerContext.getIncommingMessageValidator().validateRecipientId(peppolMessageHeader.getRecipientId().stringValue());
     	
     	if (recipientValidationMessage != null && !recipientValidationMessage.equals("")){
-    		messageBuilder.append("Validation of the recipient failed with the following reason : " + recipientValidationMessage + "\n");
+    		messageBuilder.append("\n\nValidation of the recipient failed with the following reason : \n" + recipientValidationMessage + "\n");
     	}
-    	
     	
     	String senderValidationMessage = SpringServerContext.getIncommingMessageValidator().validateSenderId(peppolMessageHeader.getSenderId().stringValue());
     	
     	if (senderValidationMessage != null && !senderValidationMessage.equals("")){
-    		messageBuilder.append("Validation of the sender failed with the following reason : " + senderValidationMessage + "\n");
+    		messageBuilder.append("\n\nValidation of the sender failed with the following reason : \n" + senderValidationMessage + "\n");
     	}
 
         // Kijken of document valide is
     	
     	String documentValidationMessage = SpringServerContext.getIncommingMessageValidator().validateIncommingDocument(xmlDocument);
         
-        
+    	if (documentValidationMessage != null && !documentValidationMessage.equals("")){
+    		messageBuilder.append("\n\nXML validation of the document failed : \n" + documentValidationMessage + "\n");
+    	}
         
         if (messageBuilder.equals("")){
         	return null;

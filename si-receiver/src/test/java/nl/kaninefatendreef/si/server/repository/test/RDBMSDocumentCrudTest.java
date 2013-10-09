@@ -4,14 +4,18 @@ import static org.junit.Assert.*;
 import nl.kaninefatendreef.si.server.config.SpringMongoConfig;
 import nl.kaninefatendreef.si.server.config.SpringRDBMSConfig;
 import nl.kaninefatendreef.si.server.config.SpringServerContext;
+import nl.kaninefatendreef.si.server.model.SiDirectoryEntry;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
+import nl.kaninefatendreef.si.server.repository.ActiveSiDirectoryRepository;
 import nl.kaninefatendreef.si.server.repository.mongo.DocumentRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -24,14 +28,40 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration (classes={ SpringRDBMSConfig.class , SpringTestConfig.class})
 @ActiveProfiles({"rdbms"})
-//@TransactionConfiguration(defaultRollback = true)
-@Transactional(propagation=Propagation.REQUIRED)
+@Configuration
+@PropertySource({"postgresstest.properties"}) 
+//@Transactional(propagation=Propagation.REQUIRED)
 public class RDBMSDocumentCrudTest {
 	
 	@Autowired
 	ActiveDocumentRepository activeDocumentRepository;
 	
+	
+	@Autowired
+	ActiveSiDirectoryRepository activeSiDirectoryRepository;
+	
 	@Test
+	public void entryTest(){
+		
+		System.out.println("Start");
+	
+		SiDirectoryEntry entry = activeSiDirectoryRepository.createSiIpDirectoryEntry();
+		entry.setBtwNumber("BTW*#&#*");
+		entry.setOinNumber("XXX983");
+		entry.setExternalReference("TestEenIdKnownbyIP");
+		entry.setKvKNumber("KvK38737");
+		
+		try{
+		
+		activeSiDirectoryRepository.save(entry);
+		}catch (Throwable t){
+			t.printStackTrace();
+			throw (t);
+		}
+		
+	}
+	
+	//@Test
 	public void initTest(){
 
 		System.out.println("---------------------- Start");
