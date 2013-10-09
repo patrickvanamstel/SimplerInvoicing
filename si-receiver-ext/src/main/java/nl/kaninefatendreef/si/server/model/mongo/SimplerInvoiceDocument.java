@@ -33,7 +33,8 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 
 	String processStatus;
 	Long processStatusTimeInMs;
-
+	Integer procesRetry;
+	
 	String property1Name;
 	String property1Value;
 	
@@ -288,6 +289,19 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 
 	public String getProperty5Value() {
 		return property5Value;
+	}
+
+
+	@Override
+	public Integer getProcesRetry() {
+		return procesRetry;
+	}
+
+
+	@Override
+	public void setProcesRetry(Integer procesRetry) {
+		this.procesRetry = procesRetry ;
+		
 	}
 
 

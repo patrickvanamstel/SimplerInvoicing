@@ -93,9 +93,17 @@ public class ExportReceivedDocuments {
 		List <SimplerInvoiceDocument> simplerInvoiceDocuments = _activeDocumentRepository.findByProcessed(true);
 		for (SimplerInvoiceDocument simplerInvoiceDocument : simplerInvoiceDocuments){
 			try{
-				if (activeExportService.exportException(simplerInvoiceDocument))
+				if (activeExportService.exportException(simplerInvoiceDocument ))
 				{
 					simplerInvoiceDocument.setProcessed(false);
+					simplerInvoiceDocument.setProcessStatusTimeInMs(System.currentTimeMillis());
+					
+					Integer retry = simplerInvoiceDocument.getProcesRetry();
+					if (retry == null){
+						retry = 0;
+					}
+					retry++;
+					simplerInvoiceDocument.setProcesRetry(retry);
 					_activeDocumentRepository.save(simplerInvoiceDocument);
 				}
 			}catch (Throwable t){

@@ -42,6 +42,10 @@ public interface SimplerInvoiceDocument {
 	public String getProcessStatus();
 	public void setProcessStatusTimeInMs(Long currentTimeMillis);
 	public Long getProcessStatusTimeInMs();
+	public Integer getProcesRetry();
+	public void setProcesRetry(Integer retries);
+	
+	
 	
 	public String getProperty1Name();
 	public void setProperty1Name(String propertyName);

@@ -63,6 +63,10 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 
 	@Column(name = "PROCESS_STATUS_MS")
 	Long processStatusTimeInMs;
+	
+	@Column(name = "PROCESS_RETRY")
+	Integer procesRetry;
+	
 
 	@Column(name = "PROPERTY_1_NAME")
 	String property1Name;
@@ -313,5 +317,12 @@ public class SimplerInvoiceDocument implements nl.kaninefatendreef.si.server.mod
 		this.property5Value = property5Value;
 	}
 
+	public Integer getProcesRetry() {
+		return procesRetry;
+	}
+
+	public void setProcesRetry(Integer procesRetry) {
+		this.procesRetry = procesRetry;
+	}
 	
 }
