@@ -7,9 +7,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "SIMPLER_INVOICE_SI_DIRECTORY")
-public class SiDirectoryEntry implements nl.kaninefatendreef.si.server.model.SiDirectoryEntry{
+@Table(name = "SIMPLER_INVOICE_DIRECTORY")
+public class SiDirectoryEntry extends nl.kaninefatendreef.si.server.model.SiDirectoryEntry{
 
 
 	@Id
@@ -17,18 +18,64 @@ public class SiDirectoryEntry implements nl.kaninefatendreef.si.server.model.SiD
 	@Column(name = "ID")
 	private Long id;
 	
-	@Column(unique=true,name="EXTERNAL-REFERENCE")
+	@Column(unique=true,name="EXTERNAL_REFERENCE")
 	String externalReference = null;
 	
-	@Column(name="KVK-NUMBER")
+	@Column(unique=true,name="KVK_NUMBER")
 	String kvkNumber = null;
 	
-	@Column(name="BTW-NUMBER")
+	@Column(unique=true,name="BTW_NUMBER")
 	String btwNumber = null;
 	
-	@Column(name="OIN-NUMBER")
+	@Column(unique=true,name="OIN_NUMBER")
 	String oinNumber = null;
 
+	@Column(unique=true,name="NON_TYPED_ENTRY_1")
+	String nonTypedEntry1 = null;
+	
+	@Column(unique=true,name="NON_TYPED_ENTRY_2")
+	String nonTypedEntry2 = null;
+	
+	@Column(unique=true,name="NON_TYPED_ENTRY_3")
+	String nonTypedEntry3 = null;
+	
+	@Column(unique=true,name="NON_TYPED_ENTRY_4")
+	String nonTypedEntry4 = null;
+	
+	@Column(unique=true,name="NON_TYPED_ENTRY_5")
+	String nonTypedEntry5 = null;
+	
+	
+	public String getNonTypedEntry1() {
+		return nonTypedEntry1;
+	}
+	public void setNonTypedEntry1(String nonTypedEntry1) {
+		this.nonTypedEntry1 = nonTypedEntry1;
+	}
+	public String getNonTypedEntry2() {
+		return nonTypedEntry2;
+	}
+	public void setNonTypedEntry2(String nonTypedEntry2) {
+		this.nonTypedEntry2 = nonTypedEntry2;
+	}
+	public String getNonTypedEntry3() {
+		return nonTypedEntry3;
+	}
+	public void setNonTypedEntry3(String nonTypedEntry3) {
+		this.nonTypedEntry3 = nonTypedEntry3;
+	}
+	public String getNonTypedEntry4() {
+		return nonTypedEntry4;
+	}
+	public void setNonTypedEntry4(String nonTypedEntry4) {
+		this.nonTypedEntry4 = nonTypedEntry4;
+	}
+	public String getNonTypedEntry5() {
+		return nonTypedEntry5;
+	}
+	public void setNonTypedEntry5(String nonTypedEntry5) {
+		this.nonTypedEntry5 = nonTypedEntry5;
+	}
 	public String getKvKNumber() {
 		return kvkNumber;
 	}
@@ -61,6 +108,11 @@ public class SiDirectoryEntry implements nl.kaninefatendreef.si.server.model.SiD
 	@Override
 	public void setExternalReference(String externalReference) {
 		this.externalReference = externalReference;
+		
+	}
+	@Override
+	public void setId(String id) {
+		this.id = new Long(id);
 		
 	}
 

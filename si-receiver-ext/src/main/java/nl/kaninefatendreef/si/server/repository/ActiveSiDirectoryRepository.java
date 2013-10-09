@@ -1,11 +1,15 @@
 package nl.kaninefatendreef.si.server.repository;
 
+
+import nl.kaninefatendreef.si.server.controller.SimpleInvoiceDirectoryEntryPage;
 import nl.kaninefatendreef.si.server.model.SiDirectoryEntry;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -50,13 +54,28 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 	}
 	
 	public SiDirectoryEntry save (SiDirectoryEntry siIpDirectoryEntry){
-		
+
+		SiDirectoryEntry siDirectoryEntry = createSiIpDirectoryEntry();
+		siDirectoryEntry.setId(siIpDirectoryEntry.getId());
+		siDirectoryEntry.setBtwNumber(siIpDirectoryEntry.getBtwNumber());
+		siDirectoryEntry.setOinNumber(siIpDirectoryEntry.getOinNumber());
+		siDirectoryEntry.setKvKNumber(siIpDirectoryEntry.getKvKNumber());
+		siDirectoryEntry.setExternalReference(siIpDirectoryEntry.getExternalReference());
+		siDirectoryEntry.setNonTypedEntry1(siIpDirectoryEntry.getNonTypedEntry1());
+		siDirectoryEntry.setNonTypedEntry2(siIpDirectoryEntry.getNonTypedEntry2());
+		siDirectoryEntry.setNonTypedEntry3(siIpDirectoryEntry.getNonTypedEntry3());
+		siDirectoryEntry.setNonTypedEntry4(siIpDirectoryEntry.getNonTypedEntry4());
+		siDirectoryEntry.setNonTypedEntry5(siIpDirectoryEntry.getNonTypedEntry5());
+
+		//TODO
+		// Resource mapper
 		if (isProfileActive("mongodb")){
-			nl.kaninefatendreef.si.server.model.mongo.SiDirectoryEntry entry = (nl.kaninefatendreef.si.server.model.mongo.SiDirectoryEntry)siIpDirectoryEntry;
-			return mongoSiDirectoryRepository.save(entry);	
+			return mongoSiDirectoryRepository.save((nl.kaninefatendreef.si.server.model.mongo.SiDirectoryEntry)siDirectoryEntry);	
 		}else if (isProfileActive("rdbms")){
-			nl.kaninefatendreef.si.server.model.jpa.SiDirectoryEntry entry = (nl.kaninefatendreef.si.server.model.jpa.SiDirectoryEntry)siIpDirectoryEntry;
-			return jpaSiDirectoryRepository.save(entry);	
+			
+			
+			
+			return jpaSiDirectoryRepository.save((nl.kaninefatendreef.si.server.model.jpa.SiDirectoryEntry)siDirectoryEntry);	
 		}else{
 			return null;
 		}
@@ -120,6 +139,81 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		
 	}
 
+	
+	public SiDirectoryEntry findByNonTypedEntry1(String nonTypedEntry1) {
+		if (isProfileActive("mongodb")) {
+			return mongoSiDirectoryRepository
+					.findByNonTypedEntry1(nonTypedEntry1);
+		} else if (isProfileActive("rdbms")) {
+			return jpaSiDirectoryRepository
+					.findByNonTypedEntry1(nonTypedEntry1);
+		} else {
+			return null;
+		}
+
+	}
+
+	public SiDirectoryEntry findByNonTypedEntry2(String nonTypedEntry2) {
+		if (isProfileActive("mongodb")) {
+			return mongoSiDirectoryRepository
+					.findByNonTypedEntry2(nonTypedEntry2);
+		} else if (isProfileActive("rdbms")) {
+			return jpaSiDirectoryRepository
+					.findByNonTypedEntry2(nonTypedEntry2);
+		} else {
+			return null;
+		}
+
+	}
+
+	public SiDirectoryEntry findByNonTypedEntry3(String nonTypedEntry3) {
+		if (isProfileActive("mongodb")) {
+			return mongoSiDirectoryRepository
+					.findByNonTypedEntry3(nonTypedEntry3);
+		} else if (isProfileActive("rdbms")) {
+			return jpaSiDirectoryRepository
+					.findByNonTypedEntry3(nonTypedEntry3);
+		} else {
+			return null;
+		}
+
+	}
+
+	public SiDirectoryEntry findByNonTypedEntry4(String nonTypedEntry4) {
+		if (isProfileActive("mongodb")) {
+			return mongoSiDirectoryRepository
+					.findByNonTypedEntry4(nonTypedEntry4);
+		} else if (isProfileActive("rdbms")) {
+			return jpaSiDirectoryRepository
+					.findByNonTypedEntry4(nonTypedEntry4);
+		} else {
+			return null;
+		}
+
+	}
+
+	public SiDirectoryEntry findByNonTypedEntry5(String nonTypedEntry5) {
+		if (isProfileActive("mongodb")) {
+			return mongoSiDirectoryRepository
+					.findByNonTypedEntry5(nonTypedEntry5);
+		} else if (isProfileActive("rdbms")) {
+			return jpaSiDirectoryRepository
+					.findByNonTypedEntry5(nonTypedEntry5);
+		} else {
+			return null;
+		}
+
+	}	
+	
+	public Page<SiDirectoryEntry> findAll(Pageable pageable) {
+		if (isProfileActive("mongodb")){
+			return new SimpleInvoiceDirectoryEntryPage(mongoSiDirectoryRepository.findAll( pageable));
+		}else if (isProfileActive("rdbms")){
+			return new SimpleInvoiceDirectoryEntryPage(jpaSiDirectoryRepository.findAll( pageable));
+		}else{
+			return null;
+		}
+	}
 
 
 	public long count() {
