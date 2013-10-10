@@ -1,7 +1,11 @@
 package nl.kaninefatendreef.si.server.config;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import nl.kaninefatendreef.si.server.model.SimplerInvoicingApplicationUser;
+import nl.kaninefatendreef.si.server.repository.ActiveSimplerInvoicingApplicationUserRepository;
 import nl.kaninefatendreef.si.ssl.FileSystemKeyStoreManager;
 import nl.kaninefatendreef.si.ssl.FileSystemTrustStoreManager;
 import nl.kaninefatendreef.si.ssl.KeyStoreManager;
@@ -31,6 +35,9 @@ public class SpringConfig implements InitializingBean{
 	
 	@Autowired
 	Environment environment = null;
+	
+	@Autowired 
+	ActiveSimplerInvoicingApplicationUserRepository activeSimplerInvoicingApplicationUserRepository = null;
 	
 	@Bean
 	public TrustStoreManager peppolTrustStore(){
@@ -64,6 +71,25 @@ public class SpringConfig implements InitializingBean{
 		{
 			HttpAdapter.dump = true;
 		}
+		
+		if (activeSimplerInvoicingApplicationUserRepository != null){
+			// Create default user
+			
+			 SimplerInvoicingApplicationUser user = activeSimplerInvoicingApplicationUserRepository.findByUsername("Administrator");
+			 if (user == null){
+				 // lets create
+				 SimplerInvoicingApplicationUser userNew =  activeSimplerInvoicingApplicationUserRepository.createSimplerInvoicingApplicationUser();
+				 userNew.setPassword("password"); // TODO
+				 userNew.setUsername("Administrator");
+				 ArrayList<String> roles = new ArrayList<>();
+				 roles.add("USER_ROLE");
+				 roles.add("ADMIN_ROLE");
+				 roles.add("REST_ROLE");
+				 userNew.setRoles(roles);
+				 activeSimplerInvoicingApplicationUserRepository.save(userNew);
+			 }
+		}
+		
 		
 		
 	}
