@@ -6,7 +6,6 @@ import java.security.Security;
 import java.security.cert.CertPath;
 import java.security.cert.CertPathValidator;
 import java.security.cert.CertPathValidatorException;
-import java.security.cert.CertPathValidatorResult;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.PKIXParameters;
@@ -93,7 +92,8 @@ public class SimplerInvoicingCertificateValidator implements InitializingBean{
             
             _logger.debug("Certificate " + certificateInfo + ", trying to validate");
             
-           	CertPathValidatorResult validatorResult = certPathValidator.validate(certPath, pkixParameters);
+           	//CertPathValidatorResult validatorResult = certPathValidator.validate(certPath, pkixParameters);
+            certPathValidator.validate(certPath, pkixParameters);
 
             // Insert serial number of this certificate to improve performance
             _validCertificateCache.setKnown(x509Certificate);

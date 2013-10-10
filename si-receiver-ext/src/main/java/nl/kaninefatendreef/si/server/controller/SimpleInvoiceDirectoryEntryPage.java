@@ -61,11 +61,13 @@ public class SimpleInvoiceDirectoryEntryPage implements Page<SiDirectoryEntry>{
 		return _simplerInvoiceDirectoryEntryPage.isLastPage();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<SiDirectoryEntry> iterator() {
 		return (Iterator<SiDirectoryEntry>) _simplerInvoiceDirectoryEntryPage.iterator();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List <SiDirectoryEntry> getContent() {
 		return (List<SiDirectoryEntry>) _simplerInvoiceDirectoryEntryPage.getContent();

@@ -61,11 +61,13 @@ public class SimpleInvoiceDocumentPage implements Page<SimplerInvoiceDocument>{
 		return _simplerInvoiceDocumentPage.isLastPage();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Iterator<SimplerInvoiceDocument> iterator() {
 		return (Iterator<SimplerInvoiceDocument>) _simplerInvoiceDocumentPage.iterator();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List <SimplerInvoiceDocument> getContent() {
 		return (List<SimplerInvoiceDocument>) _simplerInvoiceDocumentPage.getContent();
