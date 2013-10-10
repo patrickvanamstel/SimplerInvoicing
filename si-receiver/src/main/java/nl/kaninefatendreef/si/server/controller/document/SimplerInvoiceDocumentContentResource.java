@@ -1,4 +1,4 @@
-package nl.kaninefatendreef.si.server.controller;
+package nl.kaninefatendreef.si.server.controller.document;
 
 import org.springframework.hateoas.ResourceSupport;
 

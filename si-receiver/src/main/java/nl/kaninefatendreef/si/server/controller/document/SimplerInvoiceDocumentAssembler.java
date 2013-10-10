@@ -1,4 +1,4 @@
-package nl.kaninefatendreef.si.server.controller;
+package nl.kaninefatendreef.si.server.controller.document;
 
 /*import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;

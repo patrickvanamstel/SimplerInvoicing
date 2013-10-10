@@ -1,10 +1,14 @@
-package nl.kaninefatendreef.si.server.controller;
+package nl.kaninefatendreef.si.server.controller.document;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 import java.util.List;
 
+import nl.kaninefatendreef.si.server.controller.AbstractController;
+import nl.kaninefatendreef.si.server.controller.PageResource;
+import nl.kaninefatendreef.si.server.controller.PageResourceDomainToResourceAssembler;
+import nl.kaninefatendreef.si.server.controller.ResourceNotFoundException;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
