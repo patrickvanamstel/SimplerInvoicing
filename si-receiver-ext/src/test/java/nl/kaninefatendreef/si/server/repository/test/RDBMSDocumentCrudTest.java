@@ -3,7 +3,6 @@ package nl.kaninefatendreef.si.server.repository.test;
 import static org.junit.Assert.*;
 import nl.kaninefatendreef.si.server.config.SpringMongoConfig;
 import nl.kaninefatendreef.si.server.config.SpringRDBMSConfig;
-import nl.kaninefatendreef.si.server.config.SpringServerContext;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
