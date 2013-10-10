@@ -2,7 +2,7 @@ package nl.kaninefatendreef.si.server.repository;
 
 import java.util.List;
 
-import nl.kaninefatendreef.si.server.controller.SimpleInvoiceDocumentPage;
+import nl.kaninefatendreef.si.server.model.SimpleInvoiceDocumentPage;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
 import nl.kaninefatendreef.si.server.repository.jpa.JpaDocumentRepository;

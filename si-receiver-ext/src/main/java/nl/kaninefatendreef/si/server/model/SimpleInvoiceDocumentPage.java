@@ -1,9 +1,8 @@
-package nl.kaninefatendreef.si.server.controller;
+package nl.kaninefatendreef.si.server.model;
 
 import java.util.Iterator;
 import java.util.List;
 
-import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;

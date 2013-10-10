@@ -1,7 +1,7 @@
 package nl.kaninefatendreef.si.server.repository;
 
 
-import nl.kaninefatendreef.si.server.controller.SimpleInvoiceDirectoryEntryPage;
+import nl.kaninefatendreef.si.server.model.SimpleInvoiceDirectoryEntryPage;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry;
 
 import org.springframework.beans.BeansException;
