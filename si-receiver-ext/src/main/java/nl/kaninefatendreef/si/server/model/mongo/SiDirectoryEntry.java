@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "sidirectory")
-public class SiDirectoryEntry extends nl.kaninefatendreef.si.server.model.SiDirectoryEntry{
+public class SiDirectoryEntry extends nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry{
 
 	@Id
 	private String id;

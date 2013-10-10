@@ -9,7 +9,7 @@ import nl.kaninefatendreef.si.server.task.SiExportImplementationException;
  * @author Patrick van Amstel
  *
  */
-public class SiParticipantId {
+public class SimplerInvoiceParticipantId {
 	
 
 	String firstPart = null;
@@ -52,7 +52,7 @@ public class SiParticipantId {
 	
 	
 	
-	public SiParticipantId(String identifier) throws SiExportImplementationException{
+	public SimplerInvoiceParticipantId(String identifier) throws SiExportImplementationException{
 	
 		StringTokenizer tokens = new StringTokenizer(identifier , ":");
 		

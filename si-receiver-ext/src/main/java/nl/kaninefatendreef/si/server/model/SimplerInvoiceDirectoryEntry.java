@@ -1,6 +1,9 @@
 package nl.kaninefatendreef.si.server.model;
 
-public abstract class SiDirectoryEntry {
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+@JsonDeserialize(as=SimplerInvoiceDirectoryEntryJson.class)
+public abstract class SimplerInvoiceDirectoryEntry {
 
 	public abstract String getExternalReference();
 	public abstract void setExternalReference(String ipReference);

@@ -3,16 +3,16 @@ package nl.kaninefatendreef.si.server.controller;
 import java.util.Iterator;
 import java.util.List;
 
-import nl.kaninefatendreef.si.server.model.SiDirectoryEntry;
+import nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-public class SimpleInvoiceDirectoryEntryPage implements Page<SiDirectoryEntry>{
+public class SimpleInvoiceDirectoryEntryPage implements Page<SimplerInvoiceDirectoryEntry>{
 
-	private Page <? extends nl.kaninefatendreef.si.server.model.SiDirectoryEntry> _simplerInvoiceDirectoryEntryPage ;
+	private Page <? extends nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry> _simplerInvoiceDirectoryEntryPage ;
 	
-	public SimpleInvoiceDirectoryEntryPage(Page <? extends nl.kaninefatendreef.si.server.model.SiDirectoryEntry> simplerInvoiceDirectroyEntryPage){
+	public SimpleInvoiceDirectoryEntryPage(Page <? extends nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry> simplerInvoiceDirectroyEntryPage){
 		_simplerInvoiceDirectoryEntryPage = simplerInvoiceDirectroyEntryPage;
 	}
 	
@@ -63,14 +63,14 @@ public class SimpleInvoiceDirectoryEntryPage implements Page<SiDirectoryEntry>{
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Iterator<SiDirectoryEntry> iterator() {
-		return (Iterator<SiDirectoryEntry>) _simplerInvoiceDirectoryEntryPage.iterator();
+	public Iterator<SimplerInvoiceDirectoryEntry> iterator() {
+		return (Iterator<SimplerInvoiceDirectoryEntry>) _simplerInvoiceDirectoryEntryPage.iterator();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List <SiDirectoryEntry> getContent() {
-		return (List<SiDirectoryEntry>) _simplerInvoiceDirectoryEntryPage.getContent();
+	public List <SimplerInvoiceDirectoryEntry> getContent() {
+		return (List<SimplerInvoiceDirectoryEntry>) _simplerInvoiceDirectoryEntryPage.getContent();
 	}
 
 	@Override

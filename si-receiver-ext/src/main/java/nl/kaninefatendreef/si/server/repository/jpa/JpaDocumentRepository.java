@@ -13,7 +13,8 @@ import nl.kaninefatendreef.si.server.repository.AbstractDocumentRepository;
 @Repository
 public interface JpaDocumentRepository <ID extends Serializable>extends AbstractDocumentRepository<SimplerInvoiceDocument, ID>{
 
-	 public SimplerInvoiceDocument findById(ID Id);
+	// Was ID
+	 public SimplerInvoiceDocument findById(String Id);
 	
 	 public List<nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument> findByFileName(String fileName);
 	 public List<nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument> findByProcessed(Boolean processed );

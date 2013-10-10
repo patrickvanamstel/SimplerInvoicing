@@ -2,7 +2,7 @@ package nl.kaninefatendreef.si.server.repository;
 
 
 import nl.kaninefatendreef.si.server.controller.SimpleInvoiceDirectoryEntryPage;
-import nl.kaninefatendreef.si.server.model.SiDirectoryEntry;
+import nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		
 	}
 	
-	public SiDirectoryEntry createSiIpDirectoryEntry(){
+	public SimplerInvoiceDirectoryEntry createSiIpDirectoryEntry(){
 
 		if (isProfileActive("mongodb")){
 			return new nl.kaninefatendreef.si.server.model.mongo.SiDirectoryEntry();	
@@ -53,9 +53,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		
 	}
 	
-	public SiDirectoryEntry save (SiDirectoryEntry siIpDirectoryEntry){
+	public SimplerInvoiceDirectoryEntry save (SimplerInvoiceDirectoryEntry siIpDirectoryEntry){
 
-		SiDirectoryEntry siDirectoryEntry = createSiIpDirectoryEntry();
+		SimplerInvoiceDirectoryEntry siDirectoryEntry = createSiIpDirectoryEntry();
 		siDirectoryEntry.setId(siIpDirectoryEntry.getId());
 		siDirectoryEntry.setBtwNumber(siIpDirectoryEntry.getBtwNumber());
 		siDirectoryEntry.setOinNumber(siIpDirectoryEntry.getOinNumber());
@@ -83,7 +83,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 	}
 
 
-	public SiDirectoryEntry findByKvkNumber(
+	public SimplerInvoiceDirectoryEntry findByKvkNumber(
 			String kvkNumber) {
 		if (isProfileActive("mongodb")){
 			return mongoSiDirectoryRepository.findByKvkNumber(kvkNumber);	
@@ -94,7 +94,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		}
 	}
 
-	public SiDirectoryEntry findByBtwNumber(
+	public SimplerInvoiceDirectoryEntry findByBtwNumber(
 			String btwNumber) {
 		if (isProfileActive("mongodb")){
 			return mongoSiDirectoryRepository.findByBtwNumber(btwNumber);	
@@ -105,7 +105,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		}
 	}
 
-	public SiDirectoryEntry findByOinNumber(
+	public SimplerInvoiceDirectoryEntry findByOinNumber(
 			String oinNumber) {
 		if (isProfileActive("mongodb")){
 			return mongoSiDirectoryRepository.findByOinNumber(oinNumber);	
@@ -116,7 +116,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		}
 	}
 
-	public SiDirectoryEntry findByExternalReference(
+	public SimplerInvoiceDirectoryEntry findByExternalReference(
 			String externalReference) {
 		if (isProfileActive("mongodb")){
 			return mongoSiDirectoryRepository.findByExternalReference(externalReference);	
@@ -128,7 +128,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 	}
 
 	
-	public SiDirectoryEntry findOne(String siIpDirectoryEntryId) {
+	public SimplerInvoiceDirectoryEntry findOne(String siIpDirectoryEntryId) {
 		if (isProfileActive("mongodb")){
 			return mongoSiDirectoryRepository.findOne(siIpDirectoryEntryId);	
 		}else if (isProfileActive("rdbms")){
@@ -140,7 +140,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 	}
 
 	
-	public SiDirectoryEntry findByNonTypedEntry1(String nonTypedEntry1) {
+	public SimplerInvoiceDirectoryEntry findByNonTypedEntry1(String nonTypedEntry1) {
 		if (isProfileActive("mongodb")) {
 			return mongoSiDirectoryRepository
 					.findByNonTypedEntry1(nonTypedEntry1);
@@ -153,7 +153,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 
 	}
 
-	public SiDirectoryEntry findByNonTypedEntry2(String nonTypedEntry2) {
+	public SimplerInvoiceDirectoryEntry findByNonTypedEntry2(String nonTypedEntry2) {
 		if (isProfileActive("mongodb")) {
 			return mongoSiDirectoryRepository
 					.findByNonTypedEntry2(nonTypedEntry2);
@@ -166,7 +166,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 
 	}
 
-	public SiDirectoryEntry findByNonTypedEntry3(String nonTypedEntry3) {
+	public SimplerInvoiceDirectoryEntry findByNonTypedEntry3(String nonTypedEntry3) {
 		if (isProfileActive("mongodb")) {
 			return mongoSiDirectoryRepository
 					.findByNonTypedEntry3(nonTypedEntry3);
@@ -179,7 +179,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 
 	}
 
-	public SiDirectoryEntry findByNonTypedEntry4(String nonTypedEntry4) {
+	public SimplerInvoiceDirectoryEntry findByNonTypedEntry4(String nonTypedEntry4) {
 		if (isProfileActive("mongodb")) {
 			return mongoSiDirectoryRepository
 					.findByNonTypedEntry4(nonTypedEntry4);
@@ -192,7 +192,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 
 	}
 
-	public SiDirectoryEntry findByNonTypedEntry5(String nonTypedEntry5) {
+	public SimplerInvoiceDirectoryEntry findByNonTypedEntry5(String nonTypedEntry5) {
 		if (isProfileActive("mongodb")) {
 			return mongoSiDirectoryRepository
 					.findByNonTypedEntry5(nonTypedEntry5);
@@ -205,7 +205,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 
 	}	
 	
-	public Page<SiDirectoryEntry> findAll(Pageable pageable) {
+	public Page<SimplerInvoiceDirectoryEntry> findAll(Pageable pageable) {
 		if (isProfileActive("mongodb")){
 			return new SimpleInvoiceDirectoryEntryPage(mongoSiDirectoryRepository.findAll( pageable));
 		}else if (isProfileActive("rdbms")){
@@ -236,7 +236,7 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		}
 	}
 
-	public void delete(SiDirectoryEntry siIpDirectoryEntry) {
+	public void delete(SimplerInvoiceDirectoryEntry siIpDirectoryEntry) {
 		if (isProfileActive("mongodb")){
 			mongoSiDirectoryRepository.delete(siIpDirectoryEntry.getId());	
 		}else if (isProfileActive("rdbms")){

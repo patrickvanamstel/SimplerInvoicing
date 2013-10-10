@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "SIMPLER_INVOICE_DIRECTORY")
-public class SiDirectoryEntry extends nl.kaninefatendreef.si.server.model.SiDirectoryEntry{
+public class SiDirectoryEntry extends nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry{
 
 
 	@Id
