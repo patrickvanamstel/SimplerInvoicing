@@ -2,8 +2,8 @@ package nl.kaninefatendreef.si.server.config;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
+import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
 import nl.kaninefatendreef.si.server.model.SimplerInvoicingApplicationUser;
 import nl.kaninefatendreef.si.server.repository.ActiveSimplerInvoicingApplicationUserRepository;
 import nl.kaninefatendreef.si.ssl.FileSystemKeyStoreManager;
@@ -34,63 +34,87 @@ import eu.peppol.start.model.AccessPointIdentifier;
 public class SpringConfig implements InitializingBean{
 	
 	@Autowired
-	Environment environment = null;
+	Environment _environment = null;
 	
 	@Autowired 
-	ActiveSimplerInvoicingApplicationUserRepository activeSimplerInvoicingApplicationUserRepository = null;
+	ActiveSimplerInvoicingApplicationUserRepository _activeSimplerInvoicingApplicationUserRepository = null;
 	
 	@Bean
 	public TrustStoreManager peppolTrustStore(){
 		FileSystemTrustStoreManager fileSystemTrustStore = new FileSystemTrustStoreManager();
-		fileSystemTrustStore.setPassword(environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.truststore.password"));
-		fileSystemTrustStore.setKeyStoreFile(new File(environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.truststore.location")));
+		fileSystemTrustStore.setPassword(_environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.truststore.password"));
+		fileSystemTrustStore.setKeyStoreFile(new File(_environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.truststore.location")));
 		return fileSystemTrustStore;
 	}
 
 	@Bean 
 	public KeyStoreManager peppolKeyStore(){
 		FileSystemKeyStoreManager keyStore = new FileSystemKeyStoreManager();
-		keyStore.setPassword(environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.keystore.password"));
-		keyStore.setKeyStoreFile(new File(environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.keystore.location")));
+		keyStore.setPassword(_environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.keystore.password"));
+		keyStore.setKeyStoreFile(new File(_environment.getProperty("com.anachron.peppol.configuration.ssl.peppol.keystore.location")));
 		return keyStore;
 	}
 
 	@Bean
 	public AccessPointIdentifier accessPointIdentifier() {
-		
-		return new AccessPointIdentifier(environment.getProperty("com.anachron.peppol.configuration.accessPointIdentifier"));
+		return new AccessPointIdentifier(_environment.getProperty("com.anachron.peppol.configuration.accessPointIdentifier"));
 	}
 	
 	@Override
 	public void afterPropertiesSet() throws Exception {
 
 		if (
-				environment.getProperty("com.anachron.peppol.soap.trace.enabled") != null && 
-				environment.getProperty("com.anachron.peppol.soap.trace.enabled").toUpperCase().equals("TRUE")
+				_environment.getProperty("com.anachron.peppol.soap.trace.enabled") != null && 
+				_environment.getProperty("com.anachron.peppol.soap.trace.enabled").toUpperCase().equals("TRUE")
 			)
 		{
 			HttpAdapter.dump = true;
 		}
 		
-		if (activeSimplerInvoicingApplicationUserRepository != null){
+		if (_activeSimplerInvoicingApplicationUserRepository != null){
 			// Create default user
+			// Configurable by properties passed
+
+			if (_environment.containsProperty(SIConfigurationProperties.SI_RECEIVER_APP_USER_CREATE.getValue())){
+				
+				String property = _environment.getProperty(SIConfigurationProperties.SI_RECEIVER_APP_USER_CREATE.getValue());
+				if (property.equalsIgnoreCase("true")){
+					
+					String userName = null;
+					if (_environment.containsProperty(SIConfigurationProperties.SI_RECEIVER_APP_USER_NAME.getValue())){
+						userName =  _environment.getProperty(SIConfigurationProperties.SI_RECEIVER_APP_USER_NAME.getValue());
+					}
+					
+					String password = null;
+					if (_environment.containsProperty(SIConfigurationProperties.SI_RECEIVER_APP_USER_PASS.getValue())){
+						password =  _environment.getProperty(SIConfigurationProperties.SI_RECEIVER_APP_USER_PASS.getValue());
+					}
+					
+					if (userName != null && password != null){
+						 SimplerInvoicingApplicationUser user = _activeSimplerInvoicingApplicationUserRepository.findByUsername(userName);
+						 if (user == null){
+							 // lets create
+							 SimplerInvoicingApplicationUser userNew =  _activeSimplerInvoicingApplicationUserRepository.createSimplerInvoicingApplicationUser();
+							 userNew.setPassword(password); 
+							 userNew.setUsername(userName);
+							 ArrayList<String> roles = new ArrayList<>();
+							 roles.add("USER_ROLE");
+							 roles.add("ADMIN_ROLE");
+							 roles.add("REST_ROLE");
+							 userNew.setRoles(roles);
+							 _activeSimplerInvoicingApplicationUserRepository.save(userNew);
+						 }
+					}
+						
+					}
+					
+				}
+				
+			}
+
+
 			
-			 SimplerInvoicingApplicationUser user = activeSimplerInvoicingApplicationUserRepository.findByUsername("Administrator");
-			 if (user == null){
-				 // lets create
-				 SimplerInvoicingApplicationUser userNew =  activeSimplerInvoicingApplicationUserRepository.createSimplerInvoicingApplicationUser();
-				 userNew.setPassword("password"); // TODO
-				 userNew.setUsername("Administrator");
-				 ArrayList<String> roles = new ArrayList<>();
-				 roles.add("USER_ROLE");
-				 roles.add("ADMIN_ROLE");
-				 roles.add("REST_ROLE");
-				 userNew.setRoles(roles);
-				 activeSimplerInvoicingApplicationUserRepository.save(userNew);
-			 }
-		}
-		
-		
+			
 		
 	}
 	
