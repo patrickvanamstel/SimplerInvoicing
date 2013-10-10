@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 import nl.kaninefatendreef.si.server.config.SpringMongoConfig;
 import nl.kaninefatendreef.si.server.config.SpringRDBMSConfig;
 import nl.kaninefatendreef.si.server.config.SpringServerContext;
-import nl.kaninefatendreef.si.server.model.SiDirectoryEntry;
+import nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
@@ -45,7 +45,7 @@ public class RDBMSDocumentCrudTest {
 		
 		System.out.println("Start");
 	
-		SiDirectoryEntry entry = activeSiDirectoryRepository.createSiIpDirectoryEntry();
+		SimplerInvoiceDirectoryEntry entry = activeSiDirectoryRepository.createSiIpDirectoryEntry();
 		entry.setBtwNumber("BTW*#&#*");
 		entry.setOinNumber("XXX983");
 		entry.setExternalReference("TestEenIdKnownbyIP");
