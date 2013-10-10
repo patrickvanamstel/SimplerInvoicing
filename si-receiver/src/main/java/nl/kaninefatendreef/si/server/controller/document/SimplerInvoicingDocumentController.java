@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-@ExposesResourceFor(SimplerInvoiceDocumentResource.class)
+@ExposesResourceFor(SimplerInvoicingDocumentResource.class)
 @RequestMapping("/documents")
 public class SimplerInvoicingDocumentController extends AbstractController {
 
@@ -43,10 +43,10 @@ public class SimplerInvoicingDocumentController extends AbstractController {
 	
 	
 	@Autowired
-    private SimplerInvoiceDocumentAssembler _simplerInvoicDocumentResourceAssembler;
+    private SimplerInvoicingDocumentAssembler _simplerInvoicDocumentResourceAssembler;
 	
 	@Autowired
-    private SimplerInvoiceDocumentContentAssembler _simplerInvoiceDocumentContentAssembler;
+    private SimplerInvoicingDocumentContentAssembler _simplerInvoiceDocumentContentAssembler;
 	
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
@@ -59,7 +59,7 @@ public class SimplerInvoicingDocumentController extends AbstractController {
 
     @RequestMapping(method = RequestMethod.GET)
 	@ResponseBody 
-	public PageResource<SimplerInvoiceDocumentResource> listAsPageResource(
+	public PageResource<SimplerInvoicingDocumentResource> listAsPageResource(
 			@RequestParam(required=false,defaultValue="0") int page,
 			@RequestParam(required=false,defaultValue="20") int size) {
 
@@ -68,9 +68,9 @@ public class SimplerInvoicingDocumentController extends AbstractController {
 		);
     	
     	Page<SimplerInvoiceDocument> simplerInvoiceDocumentPage = _documentRepository.findAll(pageable);
-    	PageResourceDomainToResourceAssembler<SimplerInvoiceDocument , SimplerInvoiceDocumentResource > pageResourceDomainToResourceAssembler = new PageResourceDomainToResourceAssembler<>(simplerInvoiceDocumentPage , _simplerInvoicDocumentResourceAssembler);
+    	PageResourceDomainToResourceAssembler<SimplerInvoiceDocument , SimplerInvoicingDocumentResource > pageResourceDomainToResourceAssembler = new PageResourceDomainToResourceAssembler<>(simplerInvoiceDocumentPage , _simplerInvoicDocumentResourceAssembler);
     	
-    	PageResource<SimplerInvoiceDocumentResource> pr = new PageResource<SimplerInvoiceDocumentResource>(pageResourceDomainToResourceAssembler,"page","size");
+    	PageResource<SimplerInvoicingDocumentResource> pr = new PageResource<SimplerInvoicingDocumentResource>(pageResourceDomainToResourceAssembler,"page","size");
     	Link link = linkTo(SimplerInvoicingDocumentController.class).slash("/?fileName=?").withRel("findByFileName");
     	pr.add(link);
     	
@@ -80,25 +80,25 @@ public class SimplerInvoicingDocumentController extends AbstractController {
     // TODO deze werkt niet
     @RequestMapping(value="//" , method = RequestMethod.GET)
 	@ResponseBody 
-	public Iterable<SimplerInvoiceDocumentResource> list() {
+	public Iterable<SimplerInvoicingDocumentResource> list() {
    	Pageable pageable = new PageRequest(
     		0,20,new Sort("id")
 		);
     	
     	Page<SimplerInvoiceDocument> simplerInvoiceDocumentPage = _documentRepository.findAll(pageable);
-    	PageResourceDomainToResourceAssembler<SimplerInvoiceDocument , SimplerInvoiceDocumentResource > pageResourceDomainToResourceAssembler = new PageResourceDomainToResourceAssembler<>(simplerInvoiceDocumentPage , _simplerInvoicDocumentResourceAssembler);
-    	return new PageResource<SimplerInvoiceDocumentResource>(pageResourceDomainToResourceAssembler,"page","size");
+    	PageResourceDomainToResourceAssembler<SimplerInvoiceDocument , SimplerInvoicingDocumentResource > pageResourceDomainToResourceAssembler = new PageResourceDomainToResourceAssembler<>(simplerInvoiceDocumentPage , _simplerInvoicDocumentResourceAssembler);
+    	return new PageResource<SimplerInvoicingDocumentResource>(pageResourceDomainToResourceAssembler,"page","size");
 	}
     
     @RequestMapping(method = {RequestMethod.GET} , params="fileName")
     @ResponseBody
-    public List<SimplerInvoiceDocumentResource> getSimplerInvoiceDocumentByFileName(@RequestParam(value="fileName") String fileName) {
+    public List<SimplerInvoicingDocumentResource> getSimplerInvoiceDocumentByFileName(@RequestParam(value="fileName") String fileName) {
     	return _simplerInvoicDocumentResourceAssembler.toResources(_documentRepository.findByFileName(fileName));
     }
 
     @RequestMapping(method = {RequestMethod.GET} , params="processed")
     @ResponseBody
-    public PageResource<SimplerInvoiceDocumentResource> getSimplerInvoiceDocumentsProcessed(
+    public PageResource<SimplerInvoicingDocumentResource> getSimplerInvoiceDocumentsProcessed(
     		@RequestParam(value="processed") String processed,
     		@RequestParam(required=false,defaultValue="0") int page,
 			@RequestParam(required=false,defaultValue="20") int size) {
@@ -109,8 +109,8 @@ public class SimplerInvoicingDocumentController extends AbstractController {
         	
     	Boolean processedBoolean = new Boolean(processed);
     	Page<SimplerInvoiceDocument> simplerInvoiceDocumentPage = _documentRepository.findByProcessed(processedBoolean, pageable);
-    	PageResourceDomainToResourceAssembler<SimplerInvoiceDocument , SimplerInvoiceDocumentResource > pageResourceDomainToResourceAssembler = new PageResourceDomainToResourceAssembler<>(simplerInvoiceDocumentPage , _simplerInvoicDocumentResourceAssembler);
-    	PageResource<SimplerInvoiceDocumentResource> pr = new PageResource<SimplerInvoiceDocumentResource>(pageResourceDomainToResourceAssembler,"page","size");
+    	PageResourceDomainToResourceAssembler<SimplerInvoiceDocument , SimplerInvoicingDocumentResource > pageResourceDomainToResourceAssembler = new PageResourceDomainToResourceAssembler<>(simplerInvoiceDocumentPage , _simplerInvoicDocumentResourceAssembler);
+    	PageResource<SimplerInvoicingDocumentResource> pr = new PageResource<SimplerInvoicingDocumentResource>(pageResourceDomainToResourceAssembler,"page","size");
 
     	return pr;
     }
@@ -118,10 +118,10 @@ public class SimplerInvoicingDocumentController extends AbstractController {
     
     @RequestMapping(value = "/{simplerinvoiceDocumentId}", method = RequestMethod.GET)
     @ResponseBody
-    public SimplerInvoiceDocumentResource getSimplerInvoiceDocument(@PathVariable("simplerinvoiceDocumentId") String simplerinvoiceDocumentId) {
+    public SimplerInvoicingDocumentResource getSimplerInvoiceDocument(@PathVariable("simplerinvoiceDocumentId") String simplerinvoiceDocumentId) {
 
     	SimplerInvoiceDocument simplerInvoiceDocument = _documentRepository.findOne(simplerinvoiceDocumentId);
-    	SimplerInvoiceDocumentResource simplerInvoiceDocumentResource = _simplerInvoicDocumentResourceAssembler.toResource(simplerInvoiceDocument);
+    	SimplerInvoicingDocumentResource simplerInvoiceDocumentResource = _simplerInvoicDocumentResourceAssembler.toResource(simplerInvoiceDocument);
     	Link link = linkTo(SimplerInvoicingDocumentController.class).slash(simplerinvoiceDocumentId+ "/content").withRel("content");
     	simplerInvoiceDocumentResource.add(link);
         return simplerInvoiceDocumentResource;
@@ -129,7 +129,7 @@ public class SimplerInvoicingDocumentController extends AbstractController {
     
     @RequestMapping(value = "/{simplerinvoiceDocumentId}/content", method = RequestMethod.GET)
     @ResponseBody
-    public SimplerInvoiceDocumentContentResource getSimplerInvoiceDocumentFile(@PathVariable("simplerinvoiceDocumentId") String simplerinvoiceDocumentId) {
+    public SimplerInvoicingDocumentContentResource getSimplerInvoiceDocumentFile(@PathVariable("simplerinvoiceDocumentId") String simplerinvoiceDocumentId) {
         return _simplerInvoiceDocumentContentAssembler.toResource(findSimplerInvoiceDocumentContent(simplerinvoiceDocumentId));
     }
 

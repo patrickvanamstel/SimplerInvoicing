@@ -6,7 +6,7 @@ import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import org.springframework.hateoas.ResourceSupport;
 
 
-public class SimplerInvoiceDocumentResource extends ResourceSupport {
+public class SimplerInvoicingDocumentResource extends ResourceSupport {
 
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
@@ -28,9 +28,9 @@ public class SimplerInvoiceDocumentResource extends ResourceSupport {
 		return builder.toString();
 	}
 	
-	public SimplerInvoiceDocumentResource() {}
+	public SimplerInvoicingDocumentResource() {}
 	
-	public SimplerInvoiceDocumentResource(
+	public SimplerInvoicingDocumentResource(
 			SimplerInvoiceDocument simplerInvoiceDocument) {
 		
 		_id = simplerInvoiceDocument.getId();

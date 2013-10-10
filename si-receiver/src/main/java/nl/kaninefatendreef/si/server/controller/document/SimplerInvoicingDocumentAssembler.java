@@ -11,24 +11,24 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public class SimplerInvoiceDocumentAssembler extends ResourceAssemblerSupport<SimplerInvoiceDocument, SimplerInvoiceDocumentResource> {
+public class SimplerInvoicingDocumentAssembler extends ResourceAssemblerSupport<SimplerInvoiceDocument, SimplerInvoicingDocumentResource> {
 
 	
-	public SimplerInvoiceDocumentAssembler() {
-        super(SimplerInvoicingDocumentController.class, SimplerInvoiceDocumentResource.class);
+	public SimplerInvoicingDocumentAssembler() {
+        super(SimplerInvoicingDocumentController.class, SimplerInvoicingDocumentResource.class);
     }
 
     @Override
-    public SimplerInvoiceDocumentResource toResource(SimplerInvoiceDocument simplerInvoiceDocument) {
+    public SimplerInvoicingDocumentResource toResource(SimplerInvoiceDocument simplerInvoiceDocument) {
     	
-    	SimplerInvoiceDocumentResource resource = createResourceWithId(simplerInvoiceDocument.getId(), simplerInvoiceDocument);
+    	SimplerInvoicingDocumentResource resource = createResourceWithId(simplerInvoiceDocument.getId(), simplerInvoiceDocument);
     	// Deze alleen als object ook echt nog collecties erin heeft
     	//resource.add(linkTo(methodOn(SimplerInvoicingDocumentController.class).getAuthorBooks(author.getAuthorId())).withRel("books"));
         return resource;
     }
 
     @Override
-    protected SimplerInvoiceDocumentResource instantiateResource(SimplerInvoiceDocument simplerInvoiceDocument) {
-    	return new SimplerInvoiceDocumentResource(simplerInvoiceDocument);
+    protected SimplerInvoicingDocumentResource instantiateResource(SimplerInvoiceDocument simplerInvoiceDocument) {
+    	return new SimplerInvoicingDocumentResource(simplerInvoiceDocument);
     }
 }
