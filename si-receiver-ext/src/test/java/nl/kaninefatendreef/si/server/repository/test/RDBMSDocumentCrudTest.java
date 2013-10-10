@@ -1,14 +1,12 @@
 package nl.kaninefatendreef.si.server.repository.test;
 
-import static org.junit.Assert.*;
-import nl.kaninefatendreef.si.server.config.SpringMongoConfig;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import nl.kaninefatendreef.si.server.config.SpringRDBMSConfig;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDirectoryEntry;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
-import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
 import nl.kaninefatendreef.si.server.repository.ActiveSiDirectoryRepository;
-import nl.kaninefatendreef.si.server.repository.mongo.DocumentRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,8 +16,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 
 

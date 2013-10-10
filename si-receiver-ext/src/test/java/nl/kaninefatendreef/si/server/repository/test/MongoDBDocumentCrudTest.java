@@ -1,15 +1,10 @@
 package nl.kaninefatendreef.si.server.repository.test;
 
-import static org.junit.Assert.*;
-
-import java.util.Iterator;
-import java.util.UUID;
-
+import static org.junit.Assert.assertNotNull;
 import nl.kaninefatendreef.si.server.config.SpringMongoConfig;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
 import nl.kaninefatendreef.si.server.repository.ActiveDocumentRepository;
-import nl.kaninefatendreef.si.server.repository.mongo.DocumentRepository;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
