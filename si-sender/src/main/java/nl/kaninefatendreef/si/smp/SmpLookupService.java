@@ -1,9 +1,6 @@
 package nl.kaninefatendreef.si.smp;
 
 import java.io.ByteArrayInputStream;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
-import java.net.SocketAddress;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -19,6 +16,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import nl.kaninefatendreef.si.constant.SIConfigurationProperties;
+import nl.kaninefatendreef.si.document.SIProxy;
 
 import org.busdox.smp.EndpointType;
 import org.busdox.smp.ProcessIdentifierType;
@@ -50,8 +48,8 @@ public class SmpLookupService implements InitializingBean{
 	@Autowired 
 	private Environment _environment ; 
 
-	
-	Proxy _proxy = null;
+	@Autowired(required=false)
+	private SIProxy _siProxy = null;
 	
 	private String _smlPeppolCentralDNS = "sml.peppolcentral.org";
 	private String _ipAddressSmlCentral = null;
@@ -131,7 +129,7 @@ public class SmpLookupService implements InitializingBean{
         InputSource smpContents = null;
         try {
         	_logger.debug("Constructed SMP url: " + smpUrl.toExternalForm());
-            smpContents = SmpLookupServiceDelegate.getUrlContent(smpUrl , _proxy);
+            smpContents = SmpLookupServiceDelegate.getUrlContent(smpUrl ,  null);
             
             
         }catch (SmpParticipantNotFoundException se){
@@ -220,7 +218,7 @@ public class SmpLookupService implements InitializingBean{
             throw new ParticipantNotRegisteredException(participantId);
         }
 
-        InputSource smpContents = SmpLookupServiceDelegate.getUrlContent(serviceGroupURL , _proxy);
+        InputSource smpContents = SmpLookupServiceDelegate.getUrlContent(serviceGroupURL , null);
 
         // Parses the XML response from the SMP
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -284,21 +282,16 @@ public class SmpLookupService implements InitializingBean{
 		if (_environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_IP.getValue())){
 			_ipAddressSmlCentral = _environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_IP.getValue());
 		}
-		if (_environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()))
-		{
-			int port = -1 ;
-			try{
-				port= new Integer(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_PORT.getValue());
-			}catch (NumberFormatException e){
-				port = 3128;
-			}
-			SocketAddress addr = new InetSocketAddress(_environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()),port);
-			_proxy = new Proxy(Proxy.Type.HTTP, addr);
+
+		if (_siProxy != null){
+			_siProxy.configure();
 		}
 		
-		
+		if (_environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()))
+		{
+			// Need input
 
 		
-		
+		}
 	}
 }

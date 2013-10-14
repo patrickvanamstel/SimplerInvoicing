@@ -11,6 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+/**
+ * Only works when there is a DNS service that resolves the peppol dns.
+ * <p>
+ * 
+ * 
+ * @author Patrick van Amstel
+ *
+ */
 @Component
 public class DNSLookupService implements InitializingBean{
 
@@ -34,12 +42,7 @@ public class DNSLookupService implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 
-		if (environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()))
-		{
-    		System.setProperty("http.proxyHost", environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_NAME.getValue()));
-			System.setProperty("http.proxyPort", environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_PROXY_PORT.getValue()));
-		}
-		
+	
 		if (environment.containsProperty(SIConfigurationProperties.PEPPOL_SML_DNS_VALIDATE.getValue())){
 			if (environment.getProperty(SIConfigurationProperties.PEPPOL_SML_DNS_VALIDATE.getValue()).equalsIgnoreCase("true")){
 				_checkInetAddress = true;

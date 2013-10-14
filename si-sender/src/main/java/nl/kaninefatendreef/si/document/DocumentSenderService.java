@@ -40,9 +40,6 @@ public class DocumentSenderService implements InitializingBean{
 	public SIDocumentSenderResult send(InputStream inputStream , SIParticipant endPointSiReceiver )
 		throws SIDocumentSenderException, SIDocumentValidationException{
 		
-		System.out.println("---------------------");
-    	System.out.println("--------------------- " + endPointSiReceiver.getDestination());
-		
 		SIDocumentSenderResult siDocumentSenderResult = new SIDocumentSenderResult();
 		
 		// Put into memory
@@ -80,8 +77,6 @@ public class DocumentSenderService implements InitializingBean{
         messageHeader.setRecipientId(recipientId);
 
         try {
-        	System.out.println("---------------------");
-        	System.out.println("--------------------- " + endPointSiReceiver.getDestination());
 			getSiSoapProxy().send(endPointSiReceiver.getDestination(), messageHeader, soapBody);
 		} catch (FaultMessage e) {
 			throw new SIDocumentSenderException(e);

@@ -2,6 +2,7 @@ package nl.kaninefatendreef.si.document;
 
 import java.net.Authenticator;
 import java.net.PasswordAuthentication;
+import java.net.Proxy;
 
 /**
  * Proxy to be used when using the sun Resource implementation for the SAML2 communication.
@@ -123,6 +124,12 @@ public class SIProxy {
 
 	public void setHttpsProxyPort(String httpsProxyPort) {
 		this._httpsProxyPort = httpsProxyPort;
+	}
+
+
+	public Proxy getProxy() {
+		configure();
+		return null;
 	}
 
 

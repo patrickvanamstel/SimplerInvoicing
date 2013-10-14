@@ -33,7 +33,8 @@ import eu.peppol.start.model.ParticipantId;
 @ContextConfiguration(classes={DocumentConfig.class, SSLFilesystemConfig.class})
 @Configuration
 @PropertySource({"DocumentTest.properties" , "file:///secret/si.properties"}) // secret properties are properties of the keystores. They do not belong in a public repo
-@ActiveProfiles("FileSystemKeystore")
+@ActiveProfiles({"FileSystemKeystore" , "proxy" })
+//@ActiveProfiles({"FileSystemKeystore"  })
 public class DocumentSenderServiceTest {
 
 	@Autowired
@@ -63,8 +64,10 @@ public class DocumentSenderServiceTest {
 			inputStream.close();
 			
 			// This is not a unit test url
-			//endPointSiReceiver.setDestination(new URL("https://project.anachron.com/oxalis/accessPointService"));
-			endPointSiReceiver.setDestination(new URL("http://localhost:8080/si-receiver/accessPointService"));
+			endPointSiReceiver.setDestination(new URL("https://project.anachron.com/oxalis/accessPointService"));
+			//endPointSiReceiver.setDestination(new URL("https://195.86.240.2/oxalis/accessPointService"));
+			
+			//endPointSiReceiver.setDestination(new URL("http://localhost:8080/si-receiver/accessPointService"));
 			endPointSiReceiver.setChannelId(new ChannelId("CH1"));
 			endPointSiReceiver.setParticipantId(new ParticipantId("9908:1000000110"));
 
