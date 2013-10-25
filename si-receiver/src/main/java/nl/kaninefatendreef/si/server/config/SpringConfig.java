@@ -39,6 +39,7 @@ public class SpringConfig implements InitializingBean{
 	@Autowired 
 	ActiveSimplerInvoicingApplicationUserRepository _activeSimplerInvoicingApplicationUserRepository = null;
 	
+	
 	@Bean
 	public TrustStoreManager peppolTrustStore(){
 		FileSystemTrustStoreManager fileSystemTrustStore = new FileSystemTrustStoreManager();
@@ -70,7 +71,6 @@ public class SpringConfig implements InitializingBean{
 		{
 			HttpAdapter.dump = true;
 		}
-		
 		if (_activeSimplerInvoicingApplicationUserRepository != null){
 			// Create default user
 			// Configurable by properties passed
@@ -115,6 +115,7 @@ public class SpringConfig implements InitializingBean{
 
 			
 			
+
 		
 	}
 	
