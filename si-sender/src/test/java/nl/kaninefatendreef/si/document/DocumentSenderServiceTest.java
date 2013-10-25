@@ -77,6 +77,7 @@ public class DocumentSenderServiceTest {
 			assertNotNull(result.getMessageId().getMessageId());
 			
 		} catch (FileNotFoundException | SIDocumentSenderException | MalformedURLException e) {
+			e.printStackTrace();
 			fail(e.toString());
 		} catch (Throwable t){
 			fail(t.toString());
