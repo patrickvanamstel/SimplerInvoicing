@@ -24,6 +24,10 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 	
 	@Autowired(required=false)
 	nl.kaninefatendreef.si.server.repository.mongo.SimplerInvoicingApplicationUserRepository mongoSimplerInvoicingApplicationUserRepository = null;
+
+	@Autowired(required=false)
+	nl.kaninefatendreef.si.server.repository.cassandra.SimplerInvoicingApplicationUserRepository cassandraSimplerInvoicingApplicationUserRepository = null;
+
 	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
@@ -38,6 +42,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			return new nl.kaninefatendreef.si.server.model.mongo.SimplerInvoicingApplicationUser();	
 		}else if (isProfileActive("rdbms")){
 			return new nl.kaninefatendreef.si.server.model.jpa.SimplerInvoicingApplicationUser();
+		}else if (isProfileActive("cassandra")){
+			return new nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoicingApplicationUser();
 		}else{
 			return null;
 		}
@@ -75,6 +81,9 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 		}else if (isProfileActive("rdbms")){
 			nl.kaninefatendreef.si.server.model.jpa.SimplerInvoicingApplicationUser mongoDocument = (nl.kaninefatendreef.si.server.model.jpa.SimplerInvoicingApplicationUser)userObject;
 			return jpaSimplerInvoicingApplicationUserRepository.save(mongoDocument);	
+		}else if (isProfileActive("cassandra")){
+			nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoicingApplicationUser cassandraDocument = (nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoicingApplicationUser)userObject;
+			return cassandraSimplerInvoicingApplicationUserRepository.save(cassandraDocument);	
 		}else{
 			return null;
 		}
@@ -86,6 +95,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			return new SimpleInvoiceApplicationUserPage(mongoSimplerInvoicingApplicationUserRepository.findAll( pageable));
 		}else if (isProfileActive("rdbms")){
 			return new SimpleInvoiceApplicationUserPage(jpaSimplerInvoicingApplicationUserRepository.findAll( pageable));
+		}else if (isProfileActive("cassandra")){
+			return new SimpleInvoiceApplicationUserPage(cassandraSimplerInvoicingApplicationUserRepository.findAll( pageable));
 		}else{
 			return null;
 		}
@@ -97,6 +108,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			return mongoSimplerInvoicingApplicationUserRepository.findByUsername(user);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSimplerInvoicingApplicationUserRepository.findByUsername(user);
+		}else if (isProfileActive("cassandra")){
+			return cassandraSimplerInvoicingApplicationUserRepository.findByUsername(user);
 		}else{
 			return null;
 		}
@@ -107,6 +120,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			return mongoSimplerInvoicingApplicationUserRepository.findOne(userId);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSimplerInvoicingApplicationUserRepository.findOne(new Long(userId));
+		}else if (isProfileActive("cassandra")){
+			return cassandraSimplerInvoicingApplicationUserRepository.findOne(userId);
 		}else{
 			return null;
 		}
@@ -120,6 +135,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			return mongoSimplerInvoicingApplicationUserRepository.count();	
 		}else if (isProfileActive("rdbms")){
 			return jpaSimplerInvoicingApplicationUserRepository.count();
+		}else if (isProfileActive("cassandra")){
+			return cassandraSimplerInvoicingApplicationUserRepository.count();
 		}else{
 			return -1;
 		}
@@ -130,6 +147,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			return mongoSimplerInvoicingApplicationUserRepository.findAll();
 		}else if (isProfileActive("rdbms")){
 			return jpaSimplerInvoicingApplicationUserRepository.findAll();
+		}else if (isProfileActive("cassandra")){
+			return cassandraSimplerInvoicingApplicationUserRepository.findAll();
 		}else{
 			return null;
 		}
@@ -140,6 +159,8 @@ public class ActiveSimplerInvoicingApplicationUserRepository implements Applicat
 			mongoSimplerInvoicingApplicationUserRepository.delete(user.getId());	
 		}else if (isProfileActive("rdbms")){
 			jpaSimplerInvoicingApplicationUserRepository.delete(new Long(user.getId()));
+		}else if (isProfileActive("cassandra")){
+			cassandraSimplerInvoicingApplicationUserRepository.delete(user.getId());
 		}
 	}
 

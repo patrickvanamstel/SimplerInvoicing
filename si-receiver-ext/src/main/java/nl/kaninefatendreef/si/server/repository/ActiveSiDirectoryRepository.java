@@ -23,6 +23,10 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 	@Autowired(required=false)
 	nl.kaninefatendreef.si.server.repository.jpa.SiDirectoryRepository<Long>  jpaSiDirectoryRepository = null;
 	
+	@Autowired(required=false)
+	nl.kaninefatendreef.si.server.repository.cassandra.SiDirectoryRepository cassandraSiDirectoryRepository = null;
+
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
@@ -36,6 +40,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return new nl.kaninefatendreef.si.server.model.mongo.SiDirectoryEntry();	
 		}else if (isProfileActive("rdbms")){
 			return new nl.kaninefatendreef.si.server.model.jpa.SiDirectoryEntry();
+		}else if (isProfileActive("cassandra")){
+			return new nl.kaninefatendreef.si.server.model.cassandra.SiDirectoryEntry();
 		}else{
 			return null;
 		}
@@ -72,10 +78,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		if (isProfileActive("mongodb")){
 			return mongoSiDirectoryRepository.save((nl.kaninefatendreef.si.server.model.mongo.SiDirectoryEntry)siDirectoryEntry);	
 		}else if (isProfileActive("rdbms")){
-			
-			
-			
 			return jpaSiDirectoryRepository.save((nl.kaninefatendreef.si.server.model.jpa.SiDirectoryEntry)siDirectoryEntry);	
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.save((nl.kaninefatendreef.si.server.model.cassandra.SiDirectoryEntry)siDirectoryEntry);	
 		}else{
 			return null;
 		}
@@ -89,6 +94,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.findByKvkNumber(kvkNumber);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.findByKvkNumber(kvkNumber);	
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.findByKvkNumber(kvkNumber);	
 		}else{
 			return null;
 		}
@@ -100,6 +107,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.findByBtwNumber(btwNumber);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.findByBtwNumber(btwNumber);	
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.findByBtwNumber(btwNumber);	
 		}else{
 			return null;
 		}
@@ -111,6 +120,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.findByOinNumber(oinNumber);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.findByOinNumber(oinNumber);	
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.findByOinNumber(oinNumber);	
 		}else{
 			return null;
 		}
@@ -122,6 +133,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.findByExternalReference(externalReference);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.findByExternalReference(externalReference);	
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.findByExternalReference(externalReference);	
 		}else{
 			return null;
 		}
@@ -133,6 +146,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.findOne(siIpDirectoryEntryId);	
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.findOne(new Long(siIpDirectoryEntryId));
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.findOne(new Long(siIpDirectoryEntryId));
 		}else{
 			return null;
 		}
@@ -147,6 +162,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		} else if (isProfileActive("rdbms")) {
 			return jpaSiDirectoryRepository
 					.findByNonTypedEntry1(nonTypedEntry1);
+		} else if (isProfileActive("cassandra")) {
+			return cassandraSiDirectoryRepository
+					.findByNonTypedEntry1(nonTypedEntry1);
 		} else {
 			return null;
 		}
@@ -159,6 +177,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 					.findByNonTypedEntry2(nonTypedEntry2);
 		} else if (isProfileActive("rdbms")) {
 			return jpaSiDirectoryRepository
+					.findByNonTypedEntry2(nonTypedEntry2);
+		} else if (isProfileActive("cassandra")) {
+			return cassandraSiDirectoryRepository
 					.findByNonTypedEntry2(nonTypedEntry2);
 		} else {
 			return null;
@@ -173,6 +194,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		} else if (isProfileActive("rdbms")) {
 			return jpaSiDirectoryRepository
 					.findByNonTypedEntry3(nonTypedEntry3);
+		} else if (isProfileActive("cassandra")) {
+			return cassandraSiDirectoryRepository
+					.findByNonTypedEntry3(nonTypedEntry3);
 		} else {
 			return null;
 		}
@@ -185,6 +209,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 					.findByNonTypedEntry4(nonTypedEntry4);
 		} else if (isProfileActive("rdbms")) {
 			return jpaSiDirectoryRepository
+					.findByNonTypedEntry4(nonTypedEntry4);
+		} else if (isProfileActive("cassandra")) {
+			return cassandraSiDirectoryRepository
 					.findByNonTypedEntry4(nonTypedEntry4);
 		} else {
 			return null;
@@ -199,6 +226,9 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 		} else if (isProfileActive("rdbms")) {
 			return jpaSiDirectoryRepository
 					.findByNonTypedEntry5(nonTypedEntry5);
+		} else if (isProfileActive("cassandra")) {
+			return cassandraSiDirectoryRepository
+					.findByNonTypedEntry5(nonTypedEntry5);
 		} else {
 			return null;
 		}
@@ -210,6 +240,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return new SimpleInvoiceDirectoryEntryPage(mongoSiDirectoryRepository.findAll( pageable));
 		}else if (isProfileActive("rdbms")){
 			return new SimpleInvoiceDirectoryEntryPage(jpaSiDirectoryRepository.findAll( pageable));
+		}else if (isProfileActive("cassandra")){
+			return new SimpleInvoiceDirectoryEntryPage(cassandraSiDirectoryRepository.findAll( pageable));
 		}else{
 			return null;
 		}
@@ -221,6 +253,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.count();	
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.count();
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.count();
 		}else{
 			return -1;
 		}
@@ -231,6 +265,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			return mongoSiDirectoryRepository.findAll();
 		}else if (isProfileActive("rdbms")){
 			return jpaSiDirectoryRepository.findAll();
+		}else if (isProfileActive("cassandra")){
+			return cassandraSiDirectoryRepository.findAll();
 		}else{
 			return null;
 		}
@@ -241,6 +277,8 @@ public class ActiveSiDirectoryRepository implements ApplicationContextAware {
 			mongoSiDirectoryRepository.delete(siIpDirectoryEntry.getId());	
 		}else if (isProfileActive("rdbms")){
 			jpaSiDirectoryRepository.delete(new Long(siIpDirectoryEntry.getId()));
+		}else if (isProfileActive("cassandra")){
+			cassandraSiDirectoryRepository.delete(siIpDirectoryEntry.getId());
 		}
 	}
 
