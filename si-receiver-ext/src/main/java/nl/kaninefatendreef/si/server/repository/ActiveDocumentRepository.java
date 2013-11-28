@@ -5,6 +5,7 @@ import java.util.List;
 import nl.kaninefatendreef.si.server.model.SimpleInvoiceDocumentPage;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocument;
 import nl.kaninefatendreef.si.server.model.SimplerInvoiceDocumentContent;
+import nl.kaninefatendreef.si.server.repository.cassandra.CassandraDocumentRepository;
 import nl.kaninefatendreef.si.server.repository.jpa.JpaDocumentRepository;
 import nl.kaninefatendreef.si.server.repository.mongo.DocumentRepository;
 
@@ -28,6 +29,11 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 	@Autowired(required=false)
 	JpaDocumentRepository <Long> jpaDocumentRepository = null;
 	
+	@Autowired(required=false)
+	CassandraDocumentRepository cassandraDocumentRepository = null;
+	
+	
+	
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext)
 			throws BeansException {
@@ -41,6 +47,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return new nl.kaninefatendreef.si.server.model.mongo.SimplerInvoiceDocument();	
 		}else if (isProfileActive("rdbms")){
 			return new nl.kaninefatendreef.si.server.model.jpa.SimplerInvoiceDocument();
+		}else if (isProfileActive("cassandra")){
+			return new nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoiceDocument();
 		}else{
 			return null;
 		}
@@ -52,6 +60,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return new nl.kaninefatendreef.si.server.model.mongo.SimplerInvoiceDocumentContent();	
 		}else if (isProfileActive("rdbms")){
 			return new nl.kaninefatendreef.si.server.model.jpa.SimplerInvoiceDocumentContent();
+		}else if (isProfileActive("cassandra")){
+			return new nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoiceDocumentContent();
 		}else{
 			return null;
 		}
@@ -65,8 +75,6 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			}
 		}
 		return false;
-		
-		
 	}
 	
 	public SimplerInvoiceDocument save (SimplerInvoiceDocument document){
@@ -75,12 +83,14 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			nl.kaninefatendreef.si.server.model.mongo.SimplerInvoiceDocument mongoDocument = (nl.kaninefatendreef.si.server.model.mongo.SimplerInvoiceDocument)document;
 			return documentRepository.save(mongoDocument);	
 		}else if (isProfileActive("rdbms")){
-			nl.kaninefatendreef.si.server.model.jpa.SimplerInvoiceDocument mongoDocument = (nl.kaninefatendreef.si.server.model.jpa.SimplerInvoiceDocument)document;
-			return jpaDocumentRepository.save(mongoDocument);	
+			nl.kaninefatendreef.si.server.model.jpa.SimplerInvoiceDocument jpaDocument = (nl.kaninefatendreef.si.server.model.jpa.SimplerInvoiceDocument)document;
+			return jpaDocumentRepository.save(jpaDocument);	
+		}else if (isProfileActive("cassandra")){
+			nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoiceDocument cassandraDocument = (nl.kaninefatendreef.si.server.model.cassandra.SimplerInvoiceDocument)document;
+			return cassandraDocumentRepository.save(cassandraDocument);	
 		}else{
 			return null;
 		}
-		
 	}
 
 	public Page<SimplerInvoiceDocument> findAll(Pageable pageable) {
@@ -88,6 +98,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return new SimpleInvoiceDocumentPage(documentRepository.findAll( pageable));
 		}else if (isProfileActive("rdbms")){
 			return new SimpleInvoiceDocumentPage(jpaDocumentRepository.findAll( pageable));
+		}else if (isProfileActive("cassandra")){
+			return new SimpleInvoiceDocumentPage(cassandraDocumentRepository.findAll( pageable));
 		}else{
 			return null;
 		}
@@ -99,6 +111,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return documentRepository.findByFileName(fileName);	
 		}else if (isProfileActive("rdbms")){
 			return jpaDocumentRepository.findByFileName(fileName);
+		}else if (isProfileActive("cassandra")){
+			return cassandraDocumentRepository.findByFileName(fileName);
 		}else{
 			return null;
 		}
@@ -109,6 +123,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return documentRepository.findOne(simplerinvoiceDocumentId);	
 		}else if (isProfileActive("rdbms")){
 			return jpaDocumentRepository.findOne(new Long(simplerinvoiceDocumentId));
+		}else if (isProfileActive("cassandra")){
+			return cassandraDocumentRepository.findOne(simplerinvoiceDocumentId);
 		}else{
 			return null;
 		}
@@ -122,6 +138,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return documentRepository.findByProcessed(processedBoolean );	
 		}else if (isProfileActive("rdbms")){
 			return jpaDocumentRepository.findByProcessed(processedBoolean);
+		}else if (isProfileActive("cassandra")){
+			return cassandraDocumentRepository.findByProcessed(processedBoolean);
 		}else{
 			return null;
 		}
@@ -134,6 +152,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return documentRepository.findByProcessed(processedBoolean , pageable);	
 		}else if (isProfileActive("rdbms")){
 			return jpaDocumentRepository.findByProcessed(processedBoolean, pageable);
+		}else if (isProfileActive("cassandra")){
+			return cassandraDocumentRepository.findByProcessed(processedBoolean, pageable);
 		}else{
 			return null;
 		}
@@ -144,6 +164,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return documentRepository.count();	
 		}else if (isProfileActive("rdbms")){
 			return jpaDocumentRepository.count();
+		}else if (isProfileActive("cassandra")){
+			return cassandraDocumentRepository.count();
 		}else{
 			return -1;
 		}
@@ -154,6 +176,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			return documentRepository.findAll();
 		}else if (isProfileActive("rdbms")){
 			return jpaDocumentRepository.findAll();
+		}else if (isProfileActive("cassandra")){
+			return cassandraDocumentRepository.findAll();
 		}else{
 			return null;
 		}
@@ -164,6 +188,8 @@ public class ActiveDocumentRepository implements ApplicationContextAware {
 			documentRepository.delete(simplerInvoiceDocument.getId());	
 		}else if (isProfileActive("rdbms")){
 			jpaDocumentRepository.delete(new Long(simplerInvoiceDocument.getId()));
+		}else if (isProfileActive("cassandra")){
+			cassandraDocumentRepository.delete(simplerInvoiceDocument.getId());
 		}
 	}
 
